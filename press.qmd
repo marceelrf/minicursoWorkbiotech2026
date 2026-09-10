@@ -1,0 +1,38 @@
+---
+title: "Fundamentos e Ferramentas Públicas para PCR"
+author: "Marcel Ferreira"
+format:
+  revealjs:
+    theme: beige
+    slide-number: true
+    progress: true
+    toc: false
+    transition: fade
+    transition-speed: slow
+    width: 1500
+    page-layout: full
+    highlight-style: github
+    code-block-bg: true
+    fig-align: center
+    footer: "marcel.ferreira@unesp.br"
+    chalkboard: true
+    logo: "images.png"
+execute:
+  echo: false
+  warning: false
+---
+
+## Sobre mim
+
+## Sobre este minicurso
+
+## Dogma central da biologia molecular
+
+## Replicação do DNA
+
+## Reação em Cadeia da Polimerase
+
+- Kary B. Mullis;
+
+- Nobel 1993;
+
