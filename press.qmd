@@ -36,3 +36,6 @@ execute:
 
 - Nobel 1993;
 
+## Reação em Cadeia da Polimerase - Fundamentos
+
+## Reação em Cadeia da Polimerase - Tipos

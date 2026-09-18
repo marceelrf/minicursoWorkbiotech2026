@@ -1,0 +1,581 @@
+---
+title: "Desenho de Primers para PCR"
+subtitle: "Princípios, Bancos de Dados, Ferramentas e Aplicações Práticas"
+author: "Marcel"
+date: "24/09/2026"
+lang: pt-BR
+format:
+  revealjs:
+    theme: simple
+    slide-number: c/t
+    transition: fade
+    center-title-slide: true
+    incremental: false
+    footer: "Desenho de Primers para PCR"
+    chalkboard: false
+    width: 1280
+    height: 720
+---
+
+# Bem-vindos {background-color="#1b3a4b"}
+
+## Sobre este minicurso
+
+- Duração: **18h30 – 21h00** (remoto)
+- Foco: princípios técnicos + prática guiada com ferramentas gratuitas
+- Audiência mista: vamos do zero até casos aplicados de pesquisa
+- Exemplos práticos em **5 contextos diferentes**:
+  1. DNA genômico
+  2. RT‑qPCR (GAPDH)
+  3. ChIP‑qPCR
+  4. mePCR (enzimas sensíveis à metilação)
+  5. miRNA
+
+## Agenda
+
+::: {.incremental}
+- **Bloco 1** — Fundamentos de biologia molecular
+- **Bloco 2** — Critérios técnicos de desenho de primers
+- **Bloco 3** — Bancos de dados computacionais
+- **Bloco 4** — Ferramentas online gratuitas
+- **Bloco 5** — Exemplos práticos aplicados (mão na massa)
+- Encerramento e dúvidas
+:::
+
+## Objetivos de aprendizagem
+
+Ao final deste minicurso, você será capaz de:
+
+- Explicar os critérios físico-químicos que definem um bom primer
+- Buscar sequências-alvo em bancos de dados públicos (NCBI, Ensembl, UCSC, miRBase)
+- Desenhar e validar primers usando Primer3Plus, Primer‑BLAST e OligoAnalyzer
+- Adaptar o desenho de primers a diferentes aplicações experimentais
+
+# Bloco 1 {background-color="#1b3a4b"}
+## Fundamentos de Biologia Molecular
+
+## O que é a PCR?
+
+- **Reação em Cadeia da Polimerase**: amplificação exponencial de uma região específica de DNA
+- Três etapas por ciclo:
+  1. **Desnaturação** (~94–98 °C) — separa as fitas
+  2. **Anelamento** (~50–65 °C) — primers pareiam com o molde
+  3. **Extensão** (~72 °C) — DNA polimerase sintetiza a nova fita
+- Repetido por 25–40 ciclos → amplificação exponencial
+
+## Por que precisamos de primers?
+
+- DNA polimerases **não iniciam síntese do zero**
+- Precisam de uma extremidade 3'-OH livre para começar a adicionar nucleotídeos
+- O primer fornece esse ponto de partida, pareando com o molde
+- Síntese sempre ocorre **5' → 3'**
+
+## Anatomia de um par de primers
+
+```
+5'-XXXXXXXXXXXXXXXXXXX-3'                    Forward (F)
+          ------------- região alvo (amplicon) -------------
+                              3'-XXXXXXXXXXXXXXXXXXX-5'   Reverse (R)
+```
+
+- **Forward**: idêntico à fita senso, na extremidade 5' do alvo
+- **Reverse**: complementar reverso da fita senso, na extremidade 3' do alvo
+- Juntos, delimitam o **amplicon**
+
+## Tipos de molde (template)
+
+- **DNA genômico (gDNA)**: dupla-fita, contém íntrons, regiões repetitivas, ambos os alelos
+- **cDNA**: gerado por transcrição reversa a partir de mRNA — sem íntrons
+- **DNA digerido/tratado**: bisulfito, enzimas de restrição sensíveis à metilação
+- **Cromatina imunoprecipitada (ChIP)**: fragmentos ligados a uma proteína de interesse
+- Cada tipo de molde impõe **restrições específicas** ao desenho do primer
+
+## Dogma central (revisão rápida)
+
+DNA → (transcrição) → RNA → (tradução) → Proteína
+
+- Relevante para **RT‑qPCR**: medimos RNA convertido em cDNA
+- Genes têm **éxons** (codificantes, permanecem no mRNA maduro) e **íntrons** (removidos por splicing)
+- Primers para RT‑qPCR idealmente atravessam **junções éxon‑éxon**
+
+## Metilação do DNA e ilhas CpG
+
+- Metilação ocorre predominantemente em **dinucleotídeos CpG**
+- **Ilhas CpG**: regiões ricas em CpG, frequentemente em promotores
+- Metilação de promotor geralmente associada a **silenciamento gênico**
+- Algumas enzimas de restrição são **sensíveis à metilação** do seu sítio de corte
+- Base para o método de **mePCR** que veremos no Bloco 5
+
+## ChIP-seq: o essencial
+
+- **Chromatin Immunoprecipitation** + sequenciamento
+- Objetivo: mapear onde uma proteína (fator de transcrição, marca de histona) se liga ao DNA
+- Gera **picos (peaks)** — coordenadas genômicas de enriquecimento
+- **ChIP‑qPCR** é usado para *validar* um pico específico com primers direcionados
+
+## miRNA: o essencial
+
+- MicroRNAs: RNAs não codificantes, **~19–24 nt**, reguladores pós-transcricionais
+- Biogênese: pri‑miRNA → pré‑miRNA (hairpin) → miRNA maduro
+- Desafio para PCR: **o alvo é curto demais** para um par de primers convencional
+- Exige estratégias específicas (RT com stem‑loop ou poly‑A tailing) — Bloco 5
+
+# Bloco 2 {background-color="#1b3a4b"}
+## Critérios Técnicos de Desenho de Primers
+
+## Comprimento do primer
+
+- Faixa recomendada: **18–24 nucleotídeos**
+- Curto demais → perde especificidade (mais sítios de pareamento aleatório)
+- Longo demais → maior chance de estruturas secundárias, custo maior
+- Regra prática: comprimento suficiente para Tm adequada dentro da faixa ideal
+
+## Temperatura de melting (Tm) — conceito
+
+- Temperatura em que **50% das moléculas** de primer estão pareadas ao molde
+- Depende de: comprimento, composição de bases, concentração de sal e de primer
+- Temperatura de anelamento da PCR normalmente é **Tm − 3 a 5 °C**
+- Base para escolher a temperatura de anelamento do protocolo
+
+## Tm — fórmulas de cálculo
+
+::: {.columns}
+::: {.column width="50%"}
+**Regra de Wallace** (primers curtos, <14 nt)
+
+$$Tm = 4(G+C) + 2(A+T)$$
+
+- Simples, mas pouco precisa
+:::
+::: {.column width="50%"}
+**Método %GC**
+
+$$Tm = 64.9 + 41 \times \frac{(GC - 16.4)}{N}$$
+
+- Melhor para primers médios
+:::
+:::
+
+**Nearest-neighbor (termodinâmico)**
+
+- Considera energia livre de pares de bases vizinhos
+- Padrão-ouro, usado por Primer3, OligoAnalyzer, Primer-BLAST
+
+## Conteúdo de GC
+
+- Faixa ideal: **40–60% GC**
+- GC muito baixo → Tm baixa, pareamento fraco
+- GC muito alto → risco de estruturas secundárias, Tm alta demais
+- **GC clamp**: 1–2 G ou C nos últimos 5 nt da extremidade 3' — estabiliza o anelamento final
+
+## Diferença de Tm entre o par F/R
+
+- Primers forward e reverse devem ter **Tm semelhante**
+- Diferença ideal: **≤ 2–3 °C** (tolerável até ~5 °C)
+- Se muito diferente, um primer aneia bem enquanto o outro não → eficiência cai
+- A maioria das ferramentas já otimiza isso automaticamente
+
+## Especificidade
+
+- O primer deve se ligar **apenas** ao sítio-alvo pretendido no genoma/transcriptoma
+- Falta de especificidade → produtos inespecíficos, bandas extras, sinal falso em qPCR
+- Verificação obrigatória: **BLAST** da sequência do primer contra o genoma/transcriptoma de interesse
+- Atenção redobrada em: famílias gênicas, pseudogenes, regiões repetitivas
+
+## Estruturas secundárias — hairpin
+
+- Dobramento intramolecular do próprio primer
+- Bases complementares dentro da mesma sequência formam uma "grampo"
+- Compromete a disponibilidade do primer para parear com o molde
+- Avaliado por energia livre (ΔG); hairpins estáveis (ΔG muito negativo) são problemáticos
+
+## Estruturas secundárias — dímeros
+
+- **Self-dimer**: duas cópias do mesmo primer se pareiam entre si
+- **Heterodimer (cross-dimer)**: primer forward pareia com o reverse
+- Especial atenção às **extremidades 3'** — dímero na ponta 3' é o pior cenário (gera produto "primer-dimer")
+- Consome reagentes e compete com a amplificação do alvo real
+
+## Extremidade 3' — por que importa tanto
+
+- É onde a DNA polimerase **inicia a extensão**
+- Deve ser **livre de estruturas secundárias**
+- Evitar terminar em **T** (menos estável) — preferir G ou C (mas sem exagerar, cuidado com GC clamp excessivo)
+- Evitar complementaridade com o outro primer nessa região
+
+## Repetições e runs de mononucleotídeos
+
+- Evitar sequências como `AAAAA` ou `GGGGG` (>4 repetições)
+- Aumentam risco de pareamento inespecífico e "slippage" da polimerase
+- Evitar dinucleotídeos repetidos longos (ex. `CACACACA`)
+
+## Tamanho do amplicon
+
+| Aplicação | Tamanho recomendado |
+|---|---|
+| PCR convencional / Sanger | 200–1000 pb |
+| qPCR (SYBR/TaqMan) | 70–200 pb |
+| ChIP-qPCR | 80–200 pb |
+| mePCR (pós-digestão enzimática) | 150–400 pb |
+
+- Amplicons curtos → maior eficiência em qPCR
+- Amplicons muito curtos (<50 pb) dificultam distinção de dímeros de primer
+
+## Checklist resumido
+
+::: {.incremental}
+- ✅ Comprimento 18–24 nt
+- ✅ Tm entre 55–65 °C, com ΔTm entre o par ≤ 3 °C
+- ✅ GC 40–60%, GC clamp na extremidade 3'
+- ✅ Especificidade confirmada por BLAST
+- ✅ Sem hairpins/dímeros estáveis, especialmente na ponta 3'
+- ✅ Sem repetições de mononucleotídeos
+- ✅ Amplicon no tamanho adequado à aplicação
+:::
+
+# Bloco 3 {background-color="#1b3a4b"}
+## Bancos de Dados Computacionais
+
+## NCBI — o hub central
+
+- **Gene**: informações sobre genes (localização, isoformas, literatura)
+- **Nucleotide**: sequências de DNA/RNA em formato FASTA
+- **Genome / Assembly**: montagens genômicas de referência (ex. GRCh38)
+- **RefSeq**: sequências de referência curadas (NM_, NR_, NC_...)
+- Ponto de partida para obter a sequência-alvo de quase qualquer aplicação
+
+## Ensembl
+
+- Alternativa ao NCBI, com forte integração de anotação e ferramentas comparativas
+- Interface amigável para visualizar transcritos, éxons/íntrons, variantes
+- **BioMart**: extração em lote de sequências e anotações
+- Útil para conferir isoformas alternativas de splicing (importante em RT-qPCR)
+
+## UCSC Genome Browser
+
+- Visualização integrada de múltiplas camadas de anotação simultaneamente
+- Tracks úteis para este curso:
+  - **Ilhas CpG** (para mePCR)
+  - **RepeatMasker** (evitar regiões repetitivas)
+  - **ENCODE ChIP-seq peaks** (para ChIP-qPCR)
+  - **Common SNPs** (evitar polimorfismos na região do primer)
+- Permite extrair sequência de qualquer região visualizada (DNA tool)
+
+## miRBase
+
+- Banco de dados de referência para **microRNAs**
+- Fornece sequência do **pré-miRNA** (hairpin) e do **miRNA maduro**
+- Nomenclatura padronizada (ex. hsa-miR-21-5p)
+- Essencial antes de desenhar qualquer primer relacionado a miRNA
+
+## ENCODE / Cistrome DB
+
+- **ENCODE**: repositório de dados funcionais, incluindo milhares de experimentos de ChIP-seq
+- **Cistrome DB**: curadoria de dados de ChIP-seq/ATAC-seq para fatores de transcrição
+- Permitem localizar **coordenadas de picos** publicados para um fator/marca de interesse
+- Ponto de partida para desenhar primers de validação por ChIP-qPCR
+
+## REBASE e enzimas de restrição
+
+- **REBASE**: banco de dados de enzimas de restrição e seus sítios de reconhecimento
+- Ferramentas como **NEBcutter** identificam sítios de corte em uma sequência
+- Essencial para localizar sítios sensíveis à metilação (ex. `CCGG` — HpaII/MspI)
+- Passo obrigatório antes do desenho de primers para mePCR
+
+## Boas práticas ao obter sequências
+
+::: {.incremental}
+- Confirme sempre o **genome build** (ex. GRCh38 vs. hg19) — coordenadas não são intercambiáveis
+- Verifique se a sequência é da **fita correta** (senso vs. antissenso)
+- Cheque a presença de **SNPs comuns** na região onde os primers serão colocados
+- Para RT-qPCR, confirme a **estrutura éxon-íntron** do transcrito de interesse
+- Salve sempre a sequência em formato **FASTA** para uso nas ferramentas de desenho
+:::
+
+## Resumo — banco de dados por aplicação
+
+| Aplicação | Banco de dados principal |
+|---|---|
+| DNA genômico | NCBI Gene/Nucleotide, Ensembl, UCSC |
+| RT-qPCR | NCBI RefSeq (mRNA), Ensembl (isoformas) |
+| ChIP-qPCR | ENCODE, Cistrome DB, UCSC (peaks) |
+| mePCR | UCSC (ilhas CpG), REBASE/NEBcutter |
+| miRNA | miRBase |
+
+# Bloco 4 {background-color="#1b3a4b"}
+## Ferramentas Online Gratuitas
+
+## Primer3 / Primer3Plus
+
+- Motor de desenho de primers mais usado no mundo acadêmico (open source)
+- **Primer3Plus**: interface web amigável sobre o mecanismo Primer3
+- Parâmetros ajustáveis: Tm, GC%, comprimento, tamanho do amplicon, evitar SNPs
+- Não faz BLAST automaticamente — é preciso conferir especificidade à parte
+
+## NCBI Primer-BLAST
+
+- Combina o motor **Primer3** com **BLAST integrado** contra o genoma/transcriptoma
+- Permite restringir a busca a um organismo específico
+- Opção crucial para RT-qPCR: **"Exon junction span"** e **"exclude templates from genomic DNA"**
+- Resultado já indica produtos inespecíficos previstos — grande economia de tempo
+
+## OligoAnalyzer (IDT)
+
+- Ferramenta gratuita da Integrated DNA Technologies
+- Calcula: Tm (nearest-neighbor), % GC, hairpins, self-dimers, heterodimers
+- Ideal para **validar** primers já desenhados manualmente ou por outra ferramenta
+- Permite simular o par completo (F + R) para checar heterodimerização
+
+## Ferramentas específicas — RT-qPCR
+
+- **NCBI Primer-BLAST** com "intron inclusion" ativado (força spanning de junção)
+- **IDT PrimerQuest / RealTime PCR tool**: já otimizado para amplicons curtos
+- Sempre conferir a estrutura éxon-íntron no Ensembl/UCSC antes de desenhar
+
+## Ferramentas específicas — ChIP-qPCR
+
+- Não há ferramenta "dedicada" — o fluxo é:
+  1. Obter coordenadas do pico (ENCODE/Cistrome ou dados próprios)
+  2. Extrair sequência flanqueadora no UCSC/Ensembl
+  3. Desenhar com Primer3Plus/Primer-BLAST centrado no pico
+- Desenhar também primers de **região controle** (sem enriquecimento esperado)
+
+## Ferramentas específicas — mePCR
+
+- **MethPrimer**: focado em primers para PCR pós-bissulfito (contexto diferente do nosso exemplo)
+- Para **MSRE-PCR** (enzimas sensíveis à metilação): NEBcutter/REBASE para localizar sítios, depois Primer3Plus para desenhar primers **flanqueando** (não sobrepondo) o sítio de corte
+- Sem essa etapa de mapeamento do sítio, o experimento não funciona
+
+## Ferramentas específicas — miRNA
+
+- **miRBase**: obtenção da sequência madura/pré-miRNA
+- **miRPrimer2**: ferramenta dedicada a primers para RT-qPCR de miRNA (método SYBR com poly-A tailing)
+- Abordagem alternativa: primer stem-loop específico (método tipo TaqMan, Chen *et al.* 2005)
+- Atenção redobrada a famílias com alta similaridade (ex. família let-7)
+
+## Comparativo das ferramentas
+
+| Ferramenta | Função principal | Especificidade integrada? |
+|---|---|---|
+| Primer3Plus | Desenho geral | Não |
+| NCBI Primer-BLAST | Desenho + checagem | Sim |
+| OligoAnalyzer (IDT) | Validação (Tm, dímeros, hairpin) | Não |
+| miRPrimer2 | Desenho para miRNA | Parcial |
+| NEBcutter/REBASE | Mapeamento de sítios de restrição | — |
+
+## Fluxo de trabalho geral
+
+::: {.incremental}
+1. Obter a sequência-alvo no banco de dados apropriado (FASTA)
+2. Definir parâmetros no Primer3Plus/Primer-BLAST conforme a aplicação
+3. Gerar candidatos a primers
+4. Checar especificidade (BLAST, se não integrado)
+5. Validar Tm, GC%, estruturas secundárias no OligoAnalyzer
+6. Selecionar o par final e documentar
+:::
+
+# Bloco 5 {background-color="#1b3a4b"}
+## Exemplos Práticos Aplicados
+
+## Panorama dos 5 exemplos
+
+| # | Aplicação | Desafio principal |
+|---|---|---|
+| 1 | DNA genômico | Especificidade, evitar SNPs/repeats |
+| 2 | RT-qPCR (GAPDH) | Spanning de junção éxon-éxon |
+| 3 | ChIP-qPCR | Amplificar região exata do pico |
+| 4 | mePCR (enzimas metil-sensíveis) | Flanquear o sítio de corte |
+| 5 | miRNA | Alvo curto demais para par convencional |
+
+---
+
+# Exemplo 1 — DNA genômico {background-color="#2c5f6f"}
+
+## Contexto
+
+- Objetivo: amplificar uma região genômica (ex. um éxon ou promotor) para genotipagem/Sanger
+- Molde: DNA genômico total (dsDNA), ambos os alelos presentes
+- Situação típica: validação de um SNP, inserção (ex. AluYa5), ou clonagem de uma região regulatória
+
+## Passo a passo
+
+::: {.incremental}
+1. Obter a sequência genômica no **NCBI Gene** ou **UCSC** (formato FASTA)
+2. Definir a região-alvo (ex. ±300 pb ao redor do SNP/inserção de interesse)
+3. Rodar **Primer3Plus** ou **Primer-BLAST** com parâmetros padrão de PCR convencional
+4. Conferir no **UCSC** se há SNPs comuns ou repeats sobrepondo os primers propostos
+5. Validar Tm/GC/dímeros no **OligoAnalyzer**
+:::
+
+## Pontos de atenção específicos
+
+- Amplicon maior é aceitável (200–1000 pb) — não há restrição de eficiência de qPCR
+- Cuidado redobrado com **regiões repetitivas** (track RepeatMasker no UCSC)
+- Evitar posicionar primers sobre **SNPs comuns** (track Common SNPs) — pode causar falha de anelamento em alguns alelos
+- Se o objetivo for genotipagem por Sanger, considerar posicionar primers **fora** da região de interesse, com boa margem
+
+---
+
+# Exemplo 2 — RT-qPCR (GAPDH) {background-color="#2c5f6f"}
+
+## Contexto
+
+- GAPDH: gene de referência (*housekeeping*) clássico para normalização
+- Molde: **cDNA**, sintetizado a partir de mRNA por transcrição reversa
+- Sequência de referência: RefSeq mRNA, ex. `NM_002046`
+
+## O desafio central
+
+- DNA genômico contaminante pode ser coamplificado se os primers estiverem dentro de um único éxon
+- Solução: desenhar primers que **atravessem uma junção éxon-éxon**
+- Assim, o amplicon só se forma a partir do **mRNA processado (splicing já ocorrido)**
+
+## Passo a passo
+
+::: {.incremental}
+1. Buscar `NM_002046` (GAPDH) no **NCBI Nucleotide** ou visualizar estrutura no **Ensembl/UCSC**
+2. Identificar a posição das junções éxon-éxon no transcrito
+3. No **NCBI Primer-BLAST**, ativar a opção de **spanning de junção exon-exon**
+4. Restringir amplicon a **70–150 pb** (padrão qPCR)
+5. Validar especificidade contra o transcriptoma humano (não apenas genoma)
+:::
+
+## Pontos de atenção específicos
+
+- Verificar se há **isoformas alternativas** de GAPDH que devam (ou não) ser incluídas
+- Amplicon curto é essencial para eficiência de amplificação em qPCR
+- Sempre incluir um controle **"no-RT"** no experimento para confirmar ausência de amplificação de gDNA
+
+---
+
+# Exemplo 3 — ChIP-qPCR {background-color="#2c5f6f"}
+
+## Contexto
+
+- Objetivo: validar por qPCR um pico identificado em um experimento de ChIP-seq
+- Molde: DNA imunoprecipitado (fragmento de cromatina ligado à proteína de interesse)
+- Fonte das coordenadas: dados próprios (peak calling, ex. MACS2) ou banco público (**ENCODE**/**Cistrome DB**)
+
+## Passo a passo
+
+::: {.incremental}
+1. Obter as **coordenadas genômicas** do pico de interesse (build correto!)
+2. Extrair a sequência flanqueadora no **UCSC** ou **Ensembl**
+3. Desenhar primers no **Primer3Plus/Primer-BLAST** que amplifiquem uma região **dentro ou próxima ao centro do pico**
+4. Desenhar também um par de primers para uma **região controle negativa** (sem enriquecimento esperado)
+5. Validar especificidade e amplicon de 80–200 pb
+:::
+
+## Pontos de atenção específicos
+
+- O amplicon deve capturar a região de maior enriquecimento (geralmente o centro do pico/motivo do TF)
+- Evitar regiões com múltiplos sítios de ligação semelhantes (risco de amplificar regiões parálogas)
+- A região controle é essencial para interpretar o enriquecimento relativo (fold enrichment)
+
+---
+
+# Exemplo 4 — mePCR com enzimas sensíveis à metilação {background-color="#2c5f6f"}
+
+## Contexto
+
+- Método: **MSRE-PCR** (*Methylation-Sensitive Restriction Enzyme PCR*)
+- Princípio: enzimas de restrição que **não cortam** DNA metilado no seu sítio de reconhecimento (ex. `CCGG`)
+- Após digestão, só amplifica quem **permaneceu intacto** → indica metilação daquele sítio
+- Diferente do MSP clássico (que usa conversão por bissulfito) — aqui não há conversão química
+
+## Passo a passo
+
+::: {.incremental}
+1. Identificar o(s) sítio(s) CpG de interesse (ex. região de ilha CpG no promotor, via **UCSC**)
+2. Localizar sítios de reconhecimento da enzima sensível à metilação com **REBASE/NEBcutter** (ex. `CCGG` para HpaII)
+3. Desenhar primers que **flanqueiam** o sítio de corte — **nunca sobre ele**
+4. Amplicon recomendado: 150–400 pb, contendo o sítio de digestão entre F e R
+5. Validar no OligoAnalyzer normalmente
+:::
+
+## Desenho experimental (controles obrigatórios)
+
+- **Enzima metil-sensível** (ex. HpaII): não corta DNA metilado → amplifica se metilado
+- **Isosquizômero insensível** (ex. MspI): corta independente da metilação → controle de digestão completa
+- **DNA não digerido**: controle positivo de amplificação (deve sempre amplificar)
+- Sem esses três braços, o resultado não é interpretável
+
+---
+
+# Exemplo 5 — miRNA {background-color="#2c5f6f"}
+
+## Contexto
+
+- Alvo: um miRNA maduro, ex. **miR-21-5p** (~22 nt)
+- Molde: cDNA gerado a partir do miRNA maduro (não do pré-miRNA)
+- **Problema central**: 22 nt não é suficiente para posicionar um par F/R convencional com boa Tm e especificidade
+
+## Estratégias de desenho
+
+::: {.columns}
+::: {.column width="50%"}
+**Stem-loop RT + TaqMan-like**
+
+- Primer de RT com estrutura em grampo, específico para os últimos nt do miRNA
+- Gera cDNA curto e específico
+- PCR usa um primer forward específico da sequência madura + primer reverse universal
+:::
+::: {.column width="50%"}
+**Poly-A tailing (tipo SYBR)**
+
+- Adiciona cauda poli-A ao miRNA maduro antes da RT
+- RT com primer oligo-dT adaptado
+- PCR usa primer forward específico do miRNA + reverse universal (ancorado na cauda)
+:::
+:::
+
+## Passo a passo
+
+::: {.incremental}
+1. Obter a sequência madura no **miRBase** (ex. hsa-miR-21-5p)
+2. Escolher a estratégia de RT (stem-loop ou poly-A tailing)
+3. Desenhar o primer forward específico com **miRPrimer2** (ou manualmente, ajustando Tm com toda a sequência disponível)
+4. Conferir especificidade contra **outros membros da mesma família** (ex. let-7a vs. let-7b diferem por 1–2 nt)
+5. Validar Tm e ausência de dímeros no OligoAnalyzer
+:::
+
+## Pontos de atenção específicos
+
+- Diferenças de 1 nucleotídeo entre membros de família podem ser críticas — posicionar essa diferença próxima à extremidade 3' do primer específico aumenta a discriminação
+- Normalizar com um miRNA de referência estável (ex. RNU6, ou miRNAs de referência validados para o tecido em estudo)
+- Sempre confirmar que a estratégia (kit comercial ou protocolo próprio) é compatível com o método de RT escolhido
+
+# Encerramento {background-color="#1b3a4b"}
+
+## Resumo comparativo dos 5 exemplos
+
+| Aplicação | Molde | Amplicon | Ferramenta-chave |
+|---|---|---|---|
+| DNA genômico | gDNA | 200–1000 pb | Primer-BLAST + UCSC |
+| RT-qPCR (GAPDH) | cDNA | 70–150 pb | Primer-BLAST (exon-exon) |
+| ChIP-qPCR | DNA imunoprecipitado | 80–200 pb | ENCODE/Cistrome + Primer3Plus |
+| mePCR | DNA digerido | 150–400 pb | REBASE/NEBcutter + Primer3Plus |
+| miRNA | cDNA (RT especial) | curto/adaptado | miRBase + miRPrimer2 |
+
+## Checklist final — antes de encomendar seus primers
+
+::: {.incremental}
+- [ ] Sequência-alvo confirmada no banco correto, no build genômico correto
+- [ ] Critérios de Tm, GC%, comprimento respeitados
+- [ ] Especificidade checada por BLAST
+- [ ] Estruturas secundárias avaliadas (hairpin, self-dimer, heterodimer)
+- [ ] Particularidades da aplicação atendidas (spanning, flanking, família de sequências, etc.)
+- [ ] Controles experimentais planejados (no-RT, isosquizômero, região controle, etc.)
+:::
+
+## Atividade prática (guiada)
+
+- Vocês receberão **loci/genes aleatórios** para praticar o fluxo completo
+- Em duplas/trios (breakout rooms)
+- Meta: desenhar e validar um par de primers usando Primer3Plus/Primer-BLAST + OligoAnalyzer
+- Compartilhem tela ao final para discutirmos os resultados juntos
+
+## Obrigado! {background-color="#1b3a4b"}
+
+- Dúvidas?
+- Contato: Marcel — UNESP, Faculdade de Medicina de Botucatu
