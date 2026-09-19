@@ -15,6 +15,7 @@ format:
     chalkboard: false
     width: 1280
     height: 720
+    logo: "workbiotechlogo.png"
 ---
 
 # Bem-vindos {background-color="#1b3a4b"}

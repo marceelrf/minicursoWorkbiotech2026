@@ -16,7 +16,7 @@ format:
     fig-align: center
     footer: "marcel.ferreira@unesp.br"
     chalkboard: true
-    logo: "images.png"
+    logo: "workbiotechlogo.png"
 execute:
   echo: false
   warning: false
