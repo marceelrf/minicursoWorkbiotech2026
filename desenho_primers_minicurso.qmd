@@ -2,7 +2,7 @@
 title: "Desenho de Primers para PCR"
 subtitle: "Princípios, Bancos de Dados, Ferramentas e Aplicações Práticas"
 author: "Marcel"
-date: "24/09/2026"
+date: "today"
 lang: pt-BR
 format:
   revealjs:

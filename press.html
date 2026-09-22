@@ -140,35 +140,619 @@ Marcel Ferreira
 </div>
 
 </section>
-<section id="sobre-mim" class="slide level2">
-<h2>Sobre mim</h2>
-</section>
 <section id="sobre-este-minicurso" class="slide level2">
 <h2>Sobre este minicurso</h2>
+<ul>
+<li>Duração: <strong>18h30 – 21h00</strong> (remoto)</li>
+<li>Foco: princípios técnicos + prática guiada com ferramentas gratuitas</li>
+<li>Audiência mista: vamos do zero até casos aplicados de pesquisa</li>
+<li>Exemplos práticos em <strong>5 contextos diferentes</strong>:
+<ol type="1">
+<li>DNA genômico</li>
+<li>RT‑qPCR (GAPDH)</li>
+<li>ChIP‑qPCR</li>
+<li>mePCR (enzimas sensíveis à metilação)</li>
+<li>miRNA</li>
+</ol></li>
+</ul>
+</section>
+<section id="objetivos-de-aprendizagem" class="slide level2">
+<h2>Objetivos de aprendizagem</h2>
+<p>Ao final deste minicurso, você será capaz de:</p>
+<ul>
+<li>Explicar os critérios físico-químicos que definem um bom primer;</li>
+<li>Buscar sequências-alvo em bancos de dados públicos (NCBI, Ensembl, UCSC, miRBase);</li>
+<li>Desenhar e validar primers usando Primer3Plus, Primer‑BLAST e OligoAnalyzer;</li>
+<li>Adaptar o desenho de primers a diferentes aplicações experimentais;</li>
+</ul>
+</section>
+<section id="sobre-mim" class="slide level2">
+<h2>Sobre mim</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="marshall.jpg" width="420"></p>
+<figcaption>Olar!</figcaption>
+</figure>
+</div>
+</div><div class="column" style="font-size: 80%;">
+<ul>
+<li>Marcel;</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Físico médico;</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Me e PhD em Biotecnologia;</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Desde 2023, pós-doutorado em genética;</li>
+</ul>
+</div></div>
+</section>
+<section>
+<section id="bloco-1---fundamentos-de-biologia-molecular" class="title-slide slide level1 center" data-background-color="#1b3a4b">
+<h1>Bloco 1 - Fundamentos de Biologia Molecular</h1>
+
 </section>
 <section id="dogma-central-da-biologia-molecular" class="slide level2">
 <h2>Dogma central da biologia molecular</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://www.geeksforgeeks.org/biology/central-dogma-steps-guide/"><img data-src="Central-Dogma.png" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
 </section>
 <section id="replicação-do-dna" class="slide level2">
 <h2>Replicação do DNA</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://allinonehighschool.com/dna-replication/"><img data-src="dnadetailreplication.webp" class="quarto-figure quarto-figure-center" width="850"></a></p>
+</figure>
+</div>
+</section>
+<section id="replicação-do-dna-1" class="slide level2">
+<h2>Replicação do DNA</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://www.killowen.com/genetics1D.html"><img data-src="DNA_replication_en2.png" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
 </section>
 <section id="reação-em-cadeia-da-polimerase" class="slide level2">
 <h2>Reação em Cadeia da Polimerase</h2>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="mullis-13444-content-portrait-mobile-tiny.webp" class="quarto-figure quarto-figure-center" width="450"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
 <ul>
 <li><p>Kary B. Mullis;</p></li>
+<li><p>Criou em 1983/85 a PCR;</p></li>
 <li><p>Nobel 1993;</p></li>
 </ul>
+</div></div>
+</div>
 </section>
-<section id="reação-em-cadeia-da-polimerase---fundamentos" class="slide level2">
-<h2>Reação em Cadeia da Polimerase - Fundamentos</h2>
+<section id="o-que-é-a-pcr" class="slide level2 smaller">
+<h2>O que é a PCR?</h2>
+<div class="columns">
+<div class="column" data-layout-align="center" style="width:50%;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<img data-src="pcr_protocol_pcr_steps_figure.jpg" class="r-stretch quarto-figure quarto-figure-right">
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Reação em Cadeia da Polimerase: amplificação exponencial de uma região específica de DNA</li>
+<li>Três etapas por ciclo:
+<ol type="1">
+<li>Desnaturação (~94–98 °C) — separa as fitas;</li>
+<li>Anelamento (~50–65 °C) — primers pareiam com o molde;</li>
+<li>Extensão (~72 °C) — DNA polimerase sintetiza a nova fita;</li>
+</ol></li>
+<li>Repetido por 25–40 ciclos → “amplificação exponencial”;</li>
+</ul>
+</div></div>
 </section>
 <section id="reação-em-cadeia-da-polimerase---tipos" class="slide level2">
 <h2>Reação em Cadeia da Polimerase - Tipos</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://www.linkedin.com/posts/er-anurag-rathore-a1793222a_pcr-molecularbiology-biotech-activity-7340759751368089600-4ueM"><img data-src="typesofpcr.jfif" class="quarto-figure quarto-figure-center" width="720"></a></p>
+</figure>
+</div>
+</section>
+<section id="por-que-precisamos-de-primers" class="slide level2">
+<h2>Por que precisamos de primers?</h2>
+<ul>
+<li>DNA polimerases <strong>não iniciam síntese do zero;</strong></li>
+<li>Precisam de uma extremidade 3’-OH livre para começar a adicionar nucleotídeos;</li>
+<li>O primer fornece esse ponto de partida, pareando com o molde;</li>
+<li>Síntese sempre ocorre <strong>5’ → 3’;</strong></li>
+</ul>
+</section>
+<section id="anatomia-de-um-par-de-primers" class="slide level2">
+<h2>Anatomia de um par de primers</h2>
+<pre><code>5'-XXXXXXXXXXXXXXXXXXX-3'                    Forward (F)
+          ------------- região alvo (amplicon) -------------
+                              3'-XXXXXXXXXXXXXXXXXXX-5'   Reverse (R)</code></pre>
+<ul>
+<li><strong>Forward</strong>: idêntico à fita senso, na extremidade 5’ do alvo;</li>
+<li><strong>Reverse</strong>: complementar reverso da fita senso, na extremidade 3’ do alvo;</li>
+<li>Juntos, delimitam o <strong>amplicon</strong>;</li>
+</ul>
+</section>
+<section id="tipos-de-molde-template" class="slide level2">
+<h2>Tipos de molde (template)</h2>
+<ul>
+<li><strong>DNA genômico (gDNA)</strong>: dupla-fita, contém íntrons, regiões repetitivas, ambos os alelos;</li>
+<li><strong>cDNA</strong>: gerado por transcrição reversa a partir de mRNA — sem íntrons;</li>
+<li><strong>DNA digerido/tratado</strong>: bisulfito, enzimas de restrição sensíveis à metilação;</li>
+<li><strong>Cromatina imunoprecipitada (ChIP)</strong>: fragmentos ligados a uma proteína de interesse;</li>
+<li>Cada tipo de molde impõe <strong>restrições específicas</strong> ao desenho do primer;</li>
+</ul>
+</section>
+<section id="dogma-central-revisão-rápida" class="slide level2">
+<h2>Dogma central (revisão rápida)</h2>
+<p>DNA → (transcrição) → RNA → (tradução) → Proteína</p>
+<ul>
+<li>Relevante para <strong>RT‑qPCR</strong>: medimos RNA convertido em cDNA;</li>
+<li>Genes têm <strong>éxons</strong> (codificantes, permanecem no mRNA maduro) e <strong>íntrons</strong> (removidos por splicing);</li>
+<li>Primers para RT‑qPCR idealmente atravessam <strong>junções éxon‑éxon</strong>;</li>
+</ul>
+</section>
+<section id="splicing" class="slide level2">
+<h2>Splicing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://www.insideprecisionmedicine.com/wp-content/uploads/2019/01/623.jpeg"><img data-src="splicing.webp" class="quarto-figure quarto-figure-center" width="750"></a></p>
+</figure>
+</div>
+</section>
+<section id="metilação-do-dna-e-ilhas-cpg" class="slide level2 smaller">
+<h2>Metilação do DNA e ilhas CpG</h2>
+<ul>
+<li>Metilação ocorre predominantemente em <strong>dinucleotídeos CpG</strong>;</li>
+<li><strong>Ilhas CpG</strong>: regiões ricas em CpG, frequentemente em promotores;</li>
+<li>Metilação de promotor geralmente associada a <strong>silenciamento gênico</strong>;</li>
+<li>Algumas enzimas de restrição são <strong>sensíveis à metilação</strong> do seu sítio de corte;</li>
+<li>Base para o método de <strong>mePCR</strong> que veremos no Bloco 5;</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://link.springer.com/article/10.1186/1687-4153-2012-12"><img data-src="cpg_islands.jpg" class="quarto-figure quarto-figure-center" width="800"></a></p>
+</figure>
+</div>
+</section>
+<section id="chip-seq-o-essencial" class="slide level2 smaller">
+<h2>ChIP-seq: o essencial</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://www.google.com/imgres?q=chip%20seq&amp;imgurl=https%3A%2F%2Fhbctraining.github.io%2FIntro-to-ChIPseq%2Fimg%2Fchipseq_overall.png&amp;imgrefurl=https%3A%2F%2Fhbctraining.github.io%2FIntro-to-ChIPseq%2Flessons%2F01_Intro_chipseq_data_organization.html&amp;docid=6zrpjz4wiJe1EM&amp;tbnid=a9lb95GtwZNhEM&amp;vet=12ahUKEwja7frlqIKXAxV4GrkGHVTeHpYQnPAOegQIRxAA..i&amp;w=350&amp;h=474&amp;hcb=2&amp;ved=2ahUKEwja7frlqIKXAxV4GrkGHVTeHpYQnPAOegQIRxAA"><img data-src="chipseq_overall.png" class="quarto-figure quarto-figure-center" width="450"></a></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><strong>Chromatin Immunoprecipitation</strong> + sequenciamento;</li>
+<li>Objetivo: mapear onde uma proteína (fator de transcrição, marca de histona) se liga ao DNA;</li>
+<li>Gera <strong>picos (peaks)</strong> — coordenadas genômicas de enriquecimento;</li>
+<li><strong>ChIP‑qPCR</strong> é usado para <em>validar</em> um pico específico com primers direcionados;</li>
+</ul>
+</div></div>
+</section>
+<section id="mirna-o-essencial" class="slide level2 smaller">
+<h2>miRNA: o essencial</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>MicroRNAs: RNAs não codificantes, <strong>~19–24 nt</strong>, reguladores pós-transcricionais;</li>
+<li>Biogênese: pri‑miRNA → pré‑miRNA (hairpin) → miRNA maduro;</li>
+<li>Desafio para PCR: <strong>o alvo é curto demais</strong> para um par de primers convencional;</li>
+<li>Exige estratégias específicas (RT com stem‑loop ou poly‑A tailing) — Bloco 5;</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://www.origene.com/products/rnai/microrna-expression-plasmids"><img data-src="mirna-2.png" class="quarto-figure quarto-figure-center" width="450"></a></p>
+</figure>
+</div>
+</div></div>
+</section></section>
+<section>
+<section id="bloco-2---critérios-técnicos-de-desenho-de-primers" class="title-slide slide level1 center" data-background-color="#1b3a4b">
+<h1>Bloco 2 - Critérios Técnicos de Desenho de Primers</h1>
 
 </section>
+<section id="comprimento-do-primer" class="slide level2">
+<h2>Comprimento do primer</h2>
+<ul>
+<li>Faixa recomendada: <strong>18–24 nucleotídeos</strong>;</li>
+<li>Curto demais → perde especificidade (mais sítios de pareamento aleatório);</li>
+<li>Longo demais → maior chance de estruturas secundárias, custo maior;</li>
+<li>Regra prática: comprimento suficiente para Tm adequada dentro da faixa ideal;</li>
+</ul>
+</section>
+<section id="temperatura-de-melting-tm-conceito" class="slide level2">
+<h2>Temperatura de melting (Tm) — conceito</h2>
+<ul>
+<li>Temperatura em que <strong>50% das moléculas</strong> de primer estão pareadas ao molde</li>
+<li>Depende de: comprimento, composição de bases, concentração de sal e de primer</li>
+<li>Temperatura de anelamento da PCR normalmente é <strong>Tm − 3 a 5 °C</strong></li>
+<li>Base para escolher a temperatura de anelamento do protocolo</li>
+</ul>
+</section>
+<section id="tm-fórmulas-de-cálculo" class="slide level2">
+<h2>Tm — fórmulas de cálculo</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Regra de Wallace</strong> (primers curtos, &lt;14 nt)</p>
+<p><span class="math display">\[Tm = 4(G+C) + 2(A+T)\]</span></p>
+<ul>
+<li>Simples, mas pouco precisa</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Método %GC</strong></p>
+<p><span class="math display">\[Tm = 64.9 + 41 \times \frac{(GC - 16.4)}{N}\]</span></p>
+<ul>
+<li>Melhor para primers médios</li>
+</ul>
+</div></div>
+<p><strong>Nearest-neighbor (termodinâmico)</strong></p>
+<ul>
+<li>Considera energia livre de pares de bases vizinhos;</li>
+<li>Padrão-ouro, usado por Primer3, OligoAnalyzer, Primer-BLAST;</li>
+</ul>
+</section>
+<section id="conteúdo-de-gc" class="slide level2">
+<h2>Conteúdo de GC</h2>
+<ul>
+<li>Faixa ideal: <strong>40–60% GC</strong>;</li>
+<li>GC muito baixo → Tm baixa, pareamento fraco;</li>
+<li>GC muito alto → risco de estruturas secundárias, Tm alta demais;</li>
+<li><strong>GC clamp</strong>: 1–2 G ou C nos últimos 5 nt da extremidade 3’ — estabiliza o anelamento final;</li>
+</ul>
+</section>
+<section id="diferença-de-tm-entre-o-par-fr" class="slide level2">
+<h2>Diferença de Tm entre o par F/R</h2>
+<ul>
+<li>Primers forward e reverse devem ter <strong>Tm semelhante</strong></li>
+<li>Diferença ideal: <strong>≤ 2–3 °C</strong> (tolerável até ~5 °C)</li>
+<li>Se muito diferente, um primer aneia bem enquanto o outro não → eficiência cai</li>
+<li>A maioria das ferramentas já otimiza isso automaticamente</li>
+</ul>
+</section>
+<section id="especificidade" class="slide level2">
+<h2>Especificidade</h2>
+<ul>
+<li>O primer deve se ligar <strong>apenas</strong> ao sítio-alvo pretendido no genoma/transcriptoma;</li>
+<li>Falta de especificidade → produtos inespecíficos, bandas extras, sinal falso em qPCR;</li>
+<li>Verificação obrigatória: <strong>BLAST</strong> da sequência do primer contra o genoma/transcriptoma de interesse;</li>
+<li>Atenção redobrada em: famílias gênicas, pseudogenes, regiões repetitivas;</li>
+</ul>
+</section>
+<section id="estruturas-secundárias-hairpin" class="slide level2">
+<h2>Estruturas secundárias — hairpin</h2>
+<ul>
+<li>Dobramento intramolecular do próprio primer;</li>
+<li>Bases complementares dentro da mesma sequência formam uma “grampo”;</li>
+<li>Compromete a disponibilidade do primer para parear com o molde;</li>
+<li>Avaliado por energia livre (ΔG); hairpins estáveis (ΔG muito negativo) são problemáticos;</li>
+</ul>
+</section>
+<section id="estruturas-secundárias-dímeros" class="slide level2">
+<h2>Estruturas secundárias — dímeros</h2>
+<ul>
+<li><strong>Self-dimer</strong>: duas cópias do mesmo primer se pareiam entre si;</li>
+<li><strong>Heterodimer (cross-dimer)</strong>: primer forward pareia com o reverse;</li>
+<li>Especial atenção às <strong>extremidades 3’</strong> — dímero na ponta 3’ é o pior cenário (gera produto “primer-dimer”);</li>
+<li>Consome reagentes e compete com a amplificação do alvo real;</li>
+</ul>
+</section>
+<section id="extremidade-3-por-que-importa-tanto" class="slide level2">
+<h2>Extremidade 3’ — por que importa tanto</h2>
+<ul>
+<li>É onde a DNA polimerase <strong>inicia a extensão</strong>;</li>
+<li>Deve ser <strong>livre de estruturas secundárias</strong>;</li>
+<li>Evitar terminar em <strong>T</strong> (menos estável) — preferir G ou C (mas sem exagerar, cuidado com GC clamp excessivo);</li>
+<li>Evitar complementaridade com o outro primer nessa região;</li>
+</ul>
+</section>
+<section id="repetições-e-runs-de-mononucleotídeos" class="slide level2">
+<h2>Repetições e runs de mononucleotídeos</h2>
+<ul>
+<li>Evitar sequências como <code>AAAAA</code> ou <code>GGGGG</code> (&gt;4 repetições);</li>
+<li>Aumentam risco de pareamento inespecífico e “slippage” da polimerase;</li>
+<li>Evitar dinucleotídeos repetidos longos (ex. <code>CACACACA</code>);</li>
+</ul>
+</section>
+<section id="tamanho-do-amplicon" class="slide level2">
+<h2>Tamanho do amplicon</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Aplicação</th>
+<th>Tamanho recomendado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PCR convencional / Sanger</td>
+<td>200–1000 pb</td>
+</tr>
+<tr class="even">
+<td>qPCR (SYBR/TaqMan)</td>
+<td>70–200 pb</td>
+</tr>
+<tr class="odd">
+<td>ChIP-qPCR</td>
+<td>80–200 pb</td>
+</tr>
+<tr class="even">
+<td>mePCR (pós-digestão enzimática)</td>
+<td>150–400 pb</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Amplicons curtos → maior eficiência em qPCR;</li>
+<li>Amplicons muito curtos (&lt;50 pb) dificultam distinção de dímeros de primer;</li>
+</ul>
+</section>
+<section id="checklist-resumido" class="slide level2">
+<h2>Checklist resumido</h2>
+<ul>
+<li class="fragment">✅ Comprimento 18–24 nt</li>
+<li class="fragment">✅ Tm entre 55–65 °C, com ΔTm entre o par ≤ 3 °C</li>
+<li class="fragment">✅ GC 40–60%, GC clamp na extremidade 3’</li>
+<li class="fragment">✅ Especificidade confirmada por BLAST</li>
+<li class="fragment">✅ Sem hairpins/dímeros estáveis, especialmente na ponta 3’</li>
+<li class="fragment">✅ Sem repetições de mononucleotídeos</li>
+<li class="fragment">✅ Amplicon no tamanho adequado à aplicação</li>
+</ul>
+</section></section>
+<section>
+<section id="bloco-3---bancos-de-dados-computacionais" class="title-slide slide level1 center" data-background-color="#1b3a4b">
+<h1>Bloco 3 - Bancos de Dados Computacionais</h1>
+
+</section>
+<section id="ncbi" class="slide level2">
+<h2>NCBI</h2>
+<ul>
+<li><strong>Gene</strong>: informações sobre genes (localização, isoformas, literatura);</li>
+<li><strong>Nucleotide</strong>: sequências de DNA/RNA em formato FASTA;</li>
+<li><strong>Genome / Assembly</strong>: montagens genômicas de referência (ex. GRCh38);</li>
+<li><strong>RefSeq</strong>: sequências de referência curadas (NM_, NR_, NC_…);</li>
+<li>Ponto de partida para obter a sequência-alvo de quase qualquer aplicação;</li>
+</ul>
+</section>
+<section id="ensembl" class="slide level2">
+<h2>Ensembl</h2>
+<ul>
+<li>Alternativa ao NCBI, com forte integração de anotação e ferramentas comparativas;</li>
+<li>Interface amigável para visualizar transcritos, éxons/íntrons, variantes;</li>
+<li><strong>BioMart</strong>: extração em lote de sequências e anotações;</li>
+<li>Útil para conferir isoformas alternativas de splicing (importante em RT-qPCR);</li>
+</ul>
+</section>
+<section id="ucsc-genome-browser" class="slide level2">
+<h2>UCSC Genome Browser</h2>
+<ul>
+<li>Visualização integrada de múltiplas camadas de anotação simultaneamente</li>
+<li>Tracks úteis para este curso:
+<ul>
+<li><strong>Ilhas CpG</strong> (para mePCR);</li>
+<li><strong>RepeatMasker</strong> (evitar regiões repetitivas);</li>
+<li><strong>ENCODE ChIP-seq peaks</strong> (para ChIP-qPCR);</li>
+<li><strong>Common SNPs</strong> (evitar polimorfismos na região do primer);</li>
+</ul></li>
+<li>Permite extrair sequência de qualquer região visualizada (DNA tool);</li>
+</ul>
+</section>
+<section id="mirbase" class="slide level2">
+<h2>miRBase</h2>
+<ul>
+<li>Banco de dados de referência para <strong>microRNAs</strong>;</li>
+<li>Fornece sequência do <strong>pré-miRNA</strong> (hairpin) e do <strong>miRNA maduro</strong>;</li>
+<li>Nomenclatura padronizada (ex. hsa-miR-21-5p);</li>
+<li>Essencial antes de desenhar qualquer primer relacionado a miRNA;</li>
+</ul>
+</section>
+<section id="encode-cistrome-db" class="slide level2">
+<h2>ENCODE / Cistrome DB</h2>
+<ul>
+<li><strong>ENCODE</strong>: repositório de dados funcionais, incluindo milhares de experimentos de ChIP-seq;</li>
+<li><strong>Cistrome DB</strong>: curadoria de dados de ChIP-seq/ATAC-seq para fatores de transcrição;</li>
+<li>Permitem localizar <strong>coordenadas de picos</strong> publicados para um fator/marca de interesse;</li>
+<li>Ponto de partida para desenhar primers de validação por ChIP-qPCR;</li>
+</ul>
+</section>
+<section id="rebase-e-enzimas-de-restrição" class="slide level2">
+<h2>REBASE e enzimas de restrição</h2>
+<ul>
+<li><strong>REBASE</strong>: banco de dados de enzimas de restrição e seus sítios de reconhecimento;</li>
+<li>Ferramentas como <strong>NEBcutter</strong> identificam sítios de corte em uma sequência;</li>
+<li>Essencial para localizar sítios sensíveis à metilação (ex. <code>CCGG</code> — HpaII/MspI);</li>
+<li>Passo obrigatório antes do desenho de primers para mePCR;</li>
+</ul>
+</section>
+<section id="boas-práticas-ao-obter-sequências" class="slide level2">
+<h2>Boas práticas ao obter sequências</h2>
+<ul>
+<li class="fragment">Confirme sempre o <strong>genome build</strong> (ex. GRCh38 vs.&nbsp;hg19) — coordenadas não são intercambiáveis;</li>
+<li class="fragment">Verifique se a sequência é da <strong>fita correta</strong> (senso vs.&nbsp;antissenso);</li>
+<li class="fragment">Cheque a presença de <strong>SNPs comuns</strong> na região onde os primers serão colocados;</li>
+<li class="fragment">Para RT-qPCR, confirme a <strong>estrutura éxon-íntron</strong> do transcrito de interesse;</li>
+<li class="fragment">Salve sempre a sequência em formato <strong>FASTA</strong> para uso nas ferramentas de desenho;</li>
+</ul>
+</section>
+<section id="resumo-banco-de-dados-por-aplicação" class="slide level2">
+<h2>Resumo — banco de dados por aplicação</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Aplicação</th>
+<th>Banco de dados principal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DNA genômico</td>
+<td>NCBI Gene/Nucleotide, Ensembl, UCSC</td>
+</tr>
+<tr class="even">
+<td>RT-qPCR</td>
+<td>NCBI RefSeq (mRNA), Ensembl (isoformas)</td>
+</tr>
+<tr class="odd">
+<td>ChIP-qPCR</td>
+<td>ENCODE, Cistrome DB, UCSC (peaks)</td>
+</tr>
+<tr class="even">
+<td>mePCR</td>
+<td>UCSC (ilhas CpG), REBASE/NEBcutter</td>
+</tr>
+<tr class="odd">
+<td>miRNA</td>
+<td>miRBase</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="bloco-4---ferramentas-online-gratuitas" class="title-slide slide level1 center" data-background-color="#1b3a4b">
+<h1>Bloco 4 - Ferramentas Online Gratuitas</h1>
+
+</section>
+<section id="primer3-primer3plus" class="slide level2">
+<h2>Primer3 / Primer3Plus</h2>
+<ul>
+<li>Motor de desenho de primers mais usado no mundo acadêmico (open source);</li>
+<li><strong>Primer3Plus</strong>: interface web amigável sobre o mecanismo Primer3;</li>
+<li>Parâmetros ajustáveis: Tm, GC%, comprimento, tamanho do amplicon, evitar SNPs;</li>
+<li>Não faz BLAST automaticamente — é preciso conferir especificidade à parte;</li>
+</ul>
+</section>
+<section id="ncbi-primer-blast" class="slide level2">
+<h2>NCBI Primer-BLAST</h2>
+<ul>
+<li>Combina o motor <strong>Primer3</strong> com <strong>BLAST integrado</strong> contra o genoma/transcriptoma;</li>
+<li>Permite restringir a busca a um organismo específico;</li>
+<li>Opção crucial para RT-qPCR: <strong>“Exon junction span”</strong> e <strong>“exclude templates from genomic DNA”</strong>;</li>
+<li>Resultado já indica produtos inespecíficos previstos — grande economia de tempo;</li>
+</ul>
+</section>
+<section id="oligoanalyzer-idt" class="slide level2">
+<h2>OligoAnalyzer (IDT)</h2>
+<ul>
+<li>Ferramenta gratuita da Integrated DNA Technologies;</li>
+<li>Calcula: Tm (nearest-neighbor), % GC, hairpins, self-dimers, heterodimers;</li>
+<li>Ideal para <strong>validar</strong> primers já desenhados manualmente ou por outra ferramenta;</li>
+<li>Permite simular o par completo (F + R) para checar heterodimerização;</li>
+</ul>
+</section>
+<section id="ferramentas-específicas-rt-qpcr" class="slide level2">
+<h2>Ferramentas específicas — RT-qPCR</h2>
+<ul>
+<li><strong>NCBI Primer-BLAST</strong> com “intron inclusion” ativado (força spanning de junção);</li>
+<li><strong>IDT PrimerQuest / RealTime PCR tool</strong>: já otimizado para amplicons curtos;</li>
+<li>Sempre conferir a estrutura éxon-íntron no Ensembl/UCSC antes de desenhar;</li>
+</ul>
+</section>
+<section id="ferramentas-específicas-chip-qpcr" class="slide level2">
+<h2>Ferramentas específicas — ChIP-qPCR</h2>
+<ul>
+<li>Não há ferramenta “dedicada” — o fluxo é:
+<ol type="1">
+<li>Obter coordenadas do pico (ENCODE/Cistrome ou dados próprios)</li>
+<li>Extrair sequência flanqueadora no UCSC/Ensembl</li>
+<li>Desenhar com Primer3Plus/Primer-BLAST centrado no pico</li>
+</ol></li>
+<li>Desenhar também primers de <strong>região controle</strong> (sem enriquecimento esperado)</li>
+</ul>
+</section>
+<section id="ferramentas-específicas-mepcr" class="slide level2">
+<h2>Ferramentas específicas — mePCR</h2>
+<ul>
+<li><strong>MethPrimer</strong>: focado em primers para PCR pós-bissulfito (contexto diferente do nosso exemplo)</li>
+<li>Para <strong>MSRE-PCR</strong> (enzimas sensíveis à metilação): NEBcutter/REBASE para localizar sítios, depois Primer3Plus para desenhar primers <strong>flanqueando</strong> (não sobrepondo) o sítio de corte</li>
+<li>Sem essa etapa de mapeamento do sítio, o experimento não funciona</li>
+</ul>
+</section>
+<section id="ferramentas-específicas-mirna" class="slide level2">
+<h2>Ferramentas específicas — miRNA</h2>
+<ul>
+<li><strong>miRBase</strong>: obtenção da sequência madura/pré-miRNA</li>
+<li><strong>miRPrimer2</strong>: ferramenta dedicada a primers para RT-qPCR de miRNA (método SYBR com poly-A tailing)</li>
+<li>Abordagem alternativa: primer stem-loop específico (método tipo TaqMan, Chen <em>et al.</em> 2005)</li>
+<li>Atenção redobrada a famílias com alta similaridade (ex. família let-7)</li>
+</ul>
+</section>
+<section id="comparativo-das-ferramentas" class="slide level2">
+<h2>Comparativo das ferramentas</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Ferramenta</th>
+<th>Função principal</th>
+<th>Especificidade integrada?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Primer3Plus</td>
+<td>Desenho geral</td>
+<td>Não</td>
+</tr>
+<tr class="even">
+<td>NCBI Primer-BLAST</td>
+<td>Desenho + checagem</td>
+<td>Sim</td>
+</tr>
+<tr class="odd">
+<td>OligoAnalyzer (IDT)</td>
+<td>Validação (Tm, dímeros, hairpin)</td>
+<td>Não</td>
+</tr>
+<tr class="even">
+<td>miRPrimer2</td>
+<td>Desenho para miRNA</td>
+<td>Parcial</td>
+</tr>
+<tr class="odd">
+<td>NEBcutter/REBASE</td>
+<td>Mapeamento de sítios de restrição</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fluxo-de-trabalho-geral" class="slide level2">
+<h2>Fluxo de trabalho geral</h2>
+<ol type="1">
+<li class="fragment">Obter a sequência-alvo no banco de dados apropriado (FASTA)</li>
+<li class="fragment">Definir parâmetros no Primer3Plus/Primer-BLAST conforme a aplicação</li>
+<li class="fragment">Gerar candidatos a primers</li>
+<li class="fragment">Checar especificidade (BLAST, se não integrado)</li>
+<li class="fragment">Validar Tm, GC%, estruturas secundárias no OligoAnalyzer</li>
+<li class="fragment">Selecionar o par final e documentar</li>
+</ol>
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="workbiotechlogo.png" class="slide-logo"></p>
+<p><img src="images.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>marcel.ferreira@unesp.br</p>
 </div>
@@ -350,9 +934,9 @@ Marcel Ferreira
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1500,
+        width: 1280,
 
-        height: 700,
+        height: 720,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
