@@ -143,13 +143,13 @@ Marcel Ferreira
 <section id="sobre-este-minicurso" class="slide level2">
 <h2>Sobre este minicurso</h2>
 <ul>
-<li>Duração: <strong>18h30 – 21h00</strong> (remoto)</li>
+<li>Duração: <strong>19h00 – 21h00</strong> (remoto)</li>
 <li>Foco: princípios técnicos + prática guiada com ferramentas gratuitas</li>
 <li>Audiência mista: vamos do zero até casos aplicados de pesquisa</li>
 <li>Exemplos práticos em <strong>5 contextos diferentes</strong>:
 <ol type="1">
 <li>DNA genômico</li>
-<li>RT‑qPCR (GAPDH)</li>
+<li>RT‑qPCR</li>
 <li>ChIP‑qPCR</li>
 <li>mePCR (enzimas sensíveis à metilação)</li>
 <li>miRNA</li>
@@ -283,10 +283,8 @@ Marcel Ferreira
 </section>
 <section id="anatomia-de-um-par-de-primers" class="slide level2">
 <h2>Anatomia de um par de primers</h2>
-<pre><code>5'-XXXXXXXXXXXXXXXXXXX-3'                    Forward (F)
-          ------------- região alvo (amplicon) -------------
-                              3'-XXXXXXXXXXXXXXXXXXX-5'   Reverse (R)</code></pre>
-<ul>
+
+<img data-src="compartilhar%20marcel%20(1).png" width="720" class="r-stretch quarto-figure-center"><p class="caption">Figura de Hamamura Toloi 2026</p><ul>
 <li><strong>Forward</strong>: idêntico à fita senso, na extremidade 5’ do alvo;</li>
 <li><strong>Reverse</strong>: complementar reverso da fita senso, na extremidade 3’ do alvo;</li>
 <li>Juntos, delimitam o <strong>amplicon</strong>;</li>
@@ -409,11 +407,13 @@ Marcel Ferreira
 <li>Melhor para primers médios</li>
 </ul>
 </div></div>
+<div class="fragment">
 <p><strong>Nearest-neighbor (termodinâmico)</strong></p>
 <ul>
 <li>Considera energia livre de pares de bases vizinhos;</li>
 <li>Padrão-ouro, usado por Primer3, OligoAnalyzer, Primer-BLAST;</li>
 </ul>
+</div>
 </section>
 <section id="conteúdo-de-gc" class="slide level2">
 <h2>Conteúdo de GC</h2>
@@ -427,10 +427,10 @@ Marcel Ferreira
 <section id="diferença-de-tm-entre-o-par-fr" class="slide level2">
 <h2>Diferença de Tm entre o par F/R</h2>
 <ul>
-<li>Primers forward e reverse devem ter <strong>Tm semelhante</strong></li>
-<li>Diferença ideal: <strong>≤ 2–3 °C</strong> (tolerável até ~5 °C)</li>
-<li>Se muito diferente, um primer aneia bem enquanto o outro não → eficiência cai</li>
-<li>A maioria das ferramentas já otimiza isso automaticamente</li>
+<li>Primers forward e reverse devem ter <strong>Tm semelhante</strong>;</li>
+<li>Diferença ideal: <strong>≤ 2–3 °C</strong> (tolerável até ~5 °C);</li>
+<li>Se muito diferente, um primer anela bem enquanto o outro não → eficiência cai;</li>
+<li>A maioria das ferramentas já otimiza isso automaticamente;</li>
 </ul>
 </section>
 <section id="especificidade" class="slide level2">
@@ -685,18 +685,18 @@ Marcel Ferreira
 <section id="ferramentas-específicas-mepcr" class="slide level2">
 <h2>Ferramentas específicas — mePCR</h2>
 <ul>
-<li><strong>MethPrimer</strong>: focado em primers para PCR pós-bissulfito (contexto diferente do nosso exemplo)</li>
-<li>Para <strong>MSRE-PCR</strong> (enzimas sensíveis à metilação): NEBcutter/REBASE para localizar sítios, depois Primer3Plus para desenhar primers <strong>flanqueando</strong> (não sobrepondo) o sítio de corte</li>
-<li>Sem essa etapa de mapeamento do sítio, o experimento não funciona</li>
+<li><strong>MethPrimer</strong>: focado em primers para PCR pós-bissulfito (contexto diferente do nosso exemplo);</li>
+<li>Para <strong>MSRE-PCR</strong> (enzimas sensíveis à metilação): NEBcutter/REBASE para localizar sítios, depois Primer3Plus para desenhar primers <strong>flanqueando</strong> (não sobrepondo) o sítio de corte;</li>
+<li>Sem essa etapa de mapeamento do sítio, o experimento não funciona;</li>
 </ul>
 </section>
 <section id="ferramentas-específicas-mirna" class="slide level2">
 <h2>Ferramentas específicas — miRNA</h2>
 <ul>
-<li><strong>miRBase</strong>: obtenção da sequência madura/pré-miRNA</li>
-<li><strong>miRPrimer2</strong>: ferramenta dedicada a primers para RT-qPCR de miRNA (método SYBR com poly-A tailing)</li>
-<li>Abordagem alternativa: primer stem-loop específico (método tipo TaqMan, Chen <em>et al.</em> 2005)</li>
-<li>Atenção redobrada a famílias com alta similaridade (ex. família let-7)</li>
+<li><strong>miRBase</strong>: obtenção da sequência madura/pré-miRNA;</li>
+<li><strong>miRPrimer2</strong>: ferramenta dedicada a primers para RT-qPCR de miRNA (método SYBR com poly-A tailing);</li>
+<li>Abordagem alternativa: primer stem-loop específico (método tipo TaqMan, Chen <em>et al.</em> 2005);</li>
+<li>Atenção redobrada a famílias com alta similaridade (ex. família let-7);</li>
 </ul>
 </section>
 <section id="comparativo-das-ferramentas" class="slide level2">
@@ -748,6 +748,130 @@ Marcel Ferreira
 <li class="fragment">Validar Tm, GC%, estruturas secundárias no OligoAnalyzer</li>
 <li class="fragment">Selecionar o par final e documentar</li>
 </ol>
+</section></section>
+<section>
+<section id="bloco-5---exemplos-práticos-aplicados" class="title-slide slide level1 center" data-background-color="#1b3a4b">
+<h1>Bloco 5 - Exemplos Práticos Aplicados</h1>
+
+</section>
+<section id="panorama-dos-5-exemplos" class="slide level2">
+<h2>Panorama dos 5 exemplos</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Aplicação</th>
+<th>Desafio principal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>DNA genômico</td>
+<td>Especificidade, evitar SNPs/repeats</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>RT-qPCR (GAPDH)</td>
+<td>Spanning de junção éxon-éxon</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>ChIP-qPCR</td>
+<td>Amplificar região exata do pico</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>mePCR (enzimas metil-sensíveis)</td>
+<td>Flanquear o sítio de corte</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>miRNA</td>
+<td>Alvo curto demais para par convencional</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="exemplo-1-dna-genômico" class="title-slide slide level1 center" data-background-color="#2c5f6f">
+<h1>Exemplo 1 — DNA genômico</h1>
+
+</section>
+<section id="contexto" class="slide level2">
+<h2>Contexto</h2>
+<ul>
+<li>Objetivo: amplificar uma região genômica (ex. um éxon ou promotor) para genotipagem/Sanger;</li>
+<li>Molde: DNA genômico total (dsDNA), ambos os alelos presentes;</li>
+<li>Situação típica: validação de um SNP, inserção, ou clonagem de uma região regulatória;</li>
+</ul>
+</section>
+<section id="passo-a-passo" class="slide level2">
+<h2>Passo a passo</h2>
+<ol type="1">
+<li class="fragment">Obter a sequência genômica no <strong>NCBI Gene</strong> ou <strong>UCSC</strong> (formato FASTA);</li>
+<li class="fragment">Definir a região-alvo (ex. ±300 pb ao redor do SNP/inserção de interesse);</li>
+<li class="fragment">Rodar <strong>Primer3Plus</strong> ou <strong>Primer-BLAST</strong> com parâmetros padrão de PCR convencional;</li>
+<li class="fragment">Conferir no <strong>UCSC</strong> se há SNPs comuns ou repeats sobrepondo os primers propostos;</li>
+<li class="fragment">Validar Tm/GC/dímeros no <strong>OligoAnalyzer</strong>;</li>
+</ol>
+</section>
+<section id="pontos-de-atenção-específicos" class="slide level2">
+<h2>Pontos de atenção específicos</h2>
+<ul>
+<li>Amplicon maior é aceitável (200–1000 pb) — não há restrição de eficiência de qPCR;</li>
+<li>Cuidado redobrado com <strong>regiões repetitivas</strong> (track RepeatMasker no UCSC);</li>
+<li>Evitar posicionar primers sobre <strong>SNPs comuns</strong> (track Common SNPs) — pode causar falha de anelamento em alguns alelos;</li>
+<li>Se o objetivo for genotipagem por Sanger, considerar posicionar primers <strong>fora</strong> da região de interesse, com boa margem;</li>
+</ul>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="exemplo-2-rt-qpcr-gapdh" class="title-slide slide level1 center" data-background-color="#2c5f6f">
+<h1>Exemplo 2 — RT-qPCR (GAPDH)</h1>
+
+</section>
+<section id="contexto-1" class="slide level2">
+<h2>Contexto</h2>
+<ul>
+<li>GAPDH: gene de referência (<em>housekeeping</em>) clássico para normalização;</li>
+<li>Molde: <strong>cDNA</strong>, sintetizado a partir de mRNA por transcrição reversa;</li>
+<li>Sequência de referência: RefSeq mRNA, ex. <code>NM_002046</code>;</li>
+</ul>
+</section>
+<section id="o-desafio-central" class="slide level2">
+<h2>O desafio central</h2>
+<ul>
+<li>DNA genômico contaminante pode ser coamplificado se os primers estiverem dentro de um único éxon</li>
+<li>Solução: desenhar primers que <strong>atravessem uma junção éxon-éxon</strong></li>
+<li>Assim, o amplicon só se forma a partir do <strong>mRNA processado (splicing já ocorrido)</strong></li>
+</ul>
+</section>
+<section id="passo-a-passo-1" class="slide level2">
+<h2>Passo a passo</h2>
+<ol type="1">
+<li class="fragment">Buscar <code>NM_002046</code> (GAPDH) no <strong>NCBI Nucleotide</strong> ou visualizar estrutura no <strong>Ensembl/UCSC</strong></li>
+<li class="fragment">Identificar a posição das junções éxon-éxon no transcrito</li>
+<li class="fragment">No <strong>NCBI Primer-BLAST</strong>, ativar a opção de <strong>spanning de junção exon-exon</strong></li>
+<li class="fragment">Restringir amplicon a <strong>70–150 pb</strong> (padrão qPCR)</li>
+<li class="fragment">Validar especificidade contra o transcriptoma humano (não apenas genoma)</li>
+</ol>
+</section>
+<section id="pontos-de-atenção-específicos-1" class="slide level2">
+<h2>Pontos de atenção específicos</h2>
+<ul>
+<li>Verificar se há <strong>isoformas alternativas</strong> de GAPDH que devam (ou não) ser incluídas</li>
+<li>Amplicon curto é essencial para eficiência de amplificação em qPCR</li>
+<li>Sempre incluir um controle <strong>“no-RT”</strong> no experimento para confirmar ausência de amplificação de gDNA</li>
+</ul>
+</section>
+<section class="slide level2">
+
 
 </section></section>
     </div>
