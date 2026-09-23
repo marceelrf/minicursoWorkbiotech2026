@@ -6,7 +6,9 @@
 <script src="press_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="press_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="press_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="press_files/libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="press_files/libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="press_files/libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="press_files/libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
   <meta name="author" content="Marcel Ferreira">
@@ -28,8 +30,75 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
   </style>
   <link rel="stylesheet" href="press_files/libs/revealjs/dist/theme/quarto-59eea25f73ac4d198524cdbd146509bf.css">
+  <link rel="stylesheet" href="style.css">
   <link href="press_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="press_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="press_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -123,6 +192,8 @@
       margin-right: 0; 
     }
   </style>
+  <script type="module" src="press_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="press_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -139,6 +210,30 @@ Marcel Ferreira
 </div>
 </div>
 
+</section>
+<section class="slide level2">
+
+<style>
+.reveal pre, .reveal pre code {
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+  font-size: 0.55em !important;
+  line-height: 1.35 !important;
+}
+.reveal form label, .reveal .observablehq label { font-size: 0.55em; }
+.reveal .observablehq input, .reveal .observablehq textarea { font-size: 0.55em; }
+.pequeno { font-size: 0.6em; }
+</style>
+<div class="cell">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiIyAtLS0tIEZ1bsOnw7VlcyB1c2FkYXMgcGVsbyBnZXJhZG9yIChleGVjdXRhZGFzIG5vIG5hdmVnYWRvciB2aWEgd2ViUikgLS0tLVxuXG5TVEVNX0xPT1AgPC0gXCJHVENHVEFUQ0NBR1RHQ0FHR0dUQ0NHQUdHVEFUVENHQ0FDVEdHQVRBQ0dBQ1wiICAjIDUnLT4zJ1xuUkVWX1VOSVYgIDwtIFwiR1RHQ0FHR0dUQ0NHQUdHVFwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyBjb25maXJhIG5vIHNldSBwcm90b2NvbG9cblxucmV2Y29tcCA8LSBmdW5jdGlvbihzKSB7XG4gIHBhc3RlKHJldihzdHJzcGxpdChjaGFydHIoXCJBQ0dUXCIsIFwiVEdDQVwiLCBzKSwgXCJcIilbWzFdXSksIGNvbGxhcHNlID0gXCJcIilcbn1cblxuY29udGFfZ2MgPC0gZnVuY3Rpb24ocykgc3VtKHN0cnNwbGl0KHMsIFwiXCIpW1sxXV0gJWluJSBjKFwiR1wiLCBcIkNcIikpXG5cbiMgVG0gYXByb3hpbWFkYTogcmVncmEgZGUgV2FsbGFjZSAoPCAxNCBudCkgb3UgZsOzcm11bGEgYsOhc2ljYSBkZSAlR0MgKD49IDE0IG50KVxudG1fYmFzaWNhIDwtIGZ1bmN0aW9uKHMpIHtcbiAgbiA8LSBuY2hhcihzKTsgZ2MgPC0gY29udGFfZ2MocylcbiAgaWYgKG4gPCAxNCkgMiAqIChuIC0gZ2MpICsgNCAqIGdjIGVsc2UgNjQuOSArIDQxICogKGdjIC0gMTYuNCkgLyBuXG59XG5cbnJlc3VsdGFkb19wcmltZXJzIDwtIGZ1bmN0aW9uKG5vbWUsIHNlcSwgb3ZlcmxhcCwgY2F1ZGEpIHtcbiAgc2VxICAgPC0gY2hhcnRyKFwiVVwiLCBcIlRcIiwgdG91cHBlcihnc3ViKFwiW15BLVphLXpdXCIsIFwiXCIsIHNlcSkpKVxuICBjYXVkYSA8LSB0b3VwcGVyKGdzdWIoXCJbXkEtWmEtel1cIiwgXCJcIiwgY2F1ZGEpKVxuXG4gIGlmIChuY2hhcihzZXEpID09IDApIHsgY2F0KFwiQ29sZSBhIHNlcXXDqm5jaWEgZG8gbWlSTkEgbWFkdXJvIG5vIGNhbXBvIGFvIGxhZG8uXFxuXCIpOyByZXR1cm4oaW52aXNpYmxlKCkpIH1cbiAgaWYgKCFncmVwbChcIl5bQUNHVF0rJFwiLCBzZXEpKSAgIHsgY2F0KFwi4pqgIEEgc2VxdcOqbmNpYSB0ZW0gY2FyYWN0ZXJlcyBkaWZlcmVudGVzIGRlIEEvQy9HL1UvVC5cXG5cIik7IHJldHVybihpbnZpc2libGUoKSkgfVxuICBpZiAoIWdyZXBsKFwiXltBQ0dUXSokXCIsIGNhdWRhKSkgeyBjYXQoXCLimqAgQSBjYXVkYSA1JyB0ZW0gY2FyYWN0ZXJlcyBpbnbDoWxpZG9zLlxcblwiKTsgcmV0dXJuKGludmlzaWJsZSgpKSB9XG5cbiAgbiAgICAgIDwtIG5jaGFyKHNlcSlcbiAgb3ZlcmxhcCA8LSBhcy5pbnRlZ2VyKG92ZXJsYXApXG4gIGZfbGVuICA8LSBuIC0gb3ZlcmxhcFxuXG4gIGF2aXNvcyA8LSBjaGFyYWN0ZXIoKVxuICBpZiAobiA8IDE3IHx8IG4gPiAyOCkgYXZpc29zIDwtIGMoYXZpc29zLCBzcHJpbnRmKFwiQ29tcHJpbWVudG8gaW5jb211bSBwYXJhIG1pUk5BIG1hZHVybyAoJWQgbnQpLiBDb25maXJhIGEgc2VxdcOqbmNpYS5cIiwgbikpXG4gIGlmIChmX2xlbiA8IDEyKSAgICAgICBhdmlzb3MgPC0gYyhhdmlzb3MsIFwiQSBwYXJ0ZSBkbyBGIGRlcml2YWRhIGRvIG1pUk5BIHRlbSA8IDEyIG50OyBhIFRtIHBvZGUgZmljYXIgYmFpeGEuXCIpXG5cbiAgZndkIDwtIHBhc3RlMChjYXVkYSwgc3Vic3RyKHNlcSwgMSwgZl9sZW4pKVxuICBydCAgPC0gcGFzdGUwKFNURU1fTE9PUCwgcmV2Y29tcChzdWJzdHIoc2VxLCBmX2xlbiArIDEsIG4pKSlcblxuICBjYXQoc3ByaW50ZihcIiVzICB8ICAlZCBudCAgfCAgRE5BOiAlc1xcblxcblwiLCBub21lLCBuLCBzZXEpKVxuICBjYXQoXCJGT1JXQVJEICg1J+KGkjMnKVxcblwiLCBmd2QsIFwiXFxuXCIsXG4gICAgICBzcHJpbnRmKFwiJWQgbnQgfCBHQyAlLjBmJSUgfCBUbSDiiYggJS4xZiDCsENcXG5cXG5cIiwgbmNoYXIoZndkKSwgMTAwICogY29udGFfZ2MoZndkKSAvIG5jaGFyKGZ3ZCksIHRtX2Jhc2ljYShmd2QpKSwgc2VwID0gXCJcIilcbiAgY2F0KFwiUlQgU1RFTS1MT09QICg1J+KGkjMnKVxcblwiLCBydCwgXCJcXG5cIixcbiAgICAgIHNwcmludGYoXCIlZCBudCB8IGFuZWxhIG5vcyDDumx0aW1vcyAlZCBudCBkbyBtaVJOQSAoJXMpXFxuXFxuXCIsIG5jaGFyKHJ0KSwgb3ZlcmxhcCwgc3Vic3RyKHNlcSwgZl9sZW4gKyAxLCBuKSksIHNlcCA9IFwiXCIpXG4gIGNhdChcIlJFVkVSU0UgVU5JVkVSU0FMICg1J+KGkjMnKVxcblwiLCBSRVZfVU5JViwgXCJcXG5cIiwgc2VwID0gXCJcIilcbiAgaWYgKGxlbmd0aChhdmlzb3MpKSBjYXQoXCJcXG7imqAgXCIsIHBhc3RlKGF2aXNvcywgY29sbGFwc2UgPSBcIlxcbuKaoCBcIiksIFwiXFxuXCIsIHNlcCA9IFwiXCIpXG4gIGludmlzaWJsZSgpXG59In0=
+</script>
+</div>
+</div>
 </section>
 <section id="sobre-este-minicurso" class="slide level2">
 <h2>Sobre este minicurso</h2>
@@ -206,16 +301,11 @@ Marcel Ferreira
 <p><a href="https://www.geeksforgeeks.org/biology/central-dogma-steps-guide/"><img data-src="Central-Dogma.png" class="quarto-figure quarto-figure-center"></a></p>
 </figure>
 </div>
+<!-- ## Replicação do DNA
+
+[![](dnadetailreplication.webp){fig-align="center" width="850"}](https://allinonehighschool.com/dna-replication/) -->
 </section>
 <section id="replicação-do-dna" class="slide level2">
-<h2>Replicação do DNA</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="https://allinonehighschool.com/dna-replication/"><img data-src="dnadetailreplication.webp" class="quarto-figure quarto-figure-center" width="850"></a></p>
-</figure>
-</div>
-</section>
-<section id="replicação-do-dna-1" class="slide level2">
 <h2>Replicação do DNA</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -832,8 +922,8 @@ Marcel Ferreira
 
 </section></section>
 <section>
-<section id="exemplo-2-rt-qpcr-gapdh" class="title-slide slide level1 center" data-background-color="#2c5f6f">
-<h1>Exemplo 2 — RT-qPCR (GAPDH)</h1>
+<section id="exemplo-2-rt-qpcr" class="title-slide slide level1 center" data-background-color="#2c5f6f">
+<h1>Exemplo 2 — RT-qPCR</h1>
 
 </section>
 <section id="contexto-1" class="slide level2">
@@ -872,11 +962,312 @@ Marcel Ferreira
 </section>
 <section class="slide level2">
 
+</section></section>
+<section>
+<section id="exemplo-3-chip-qpcr" class="title-slide slide level1 center" data-background-color="#2c5f6f">
+<h1>Exemplo 3 — ChIP-qPCR</h1>
 
+</section>
+<section id="contexto-2" class="slide level2">
+<h2>Contexto</h2>
+<ul>
+<li>Objetivo: validar por qPCR um pico identificado em um experimento de ChIP-seq</li>
+<li>Molde: DNA imunoprecipitado (fragmento de cromatina ligado à proteína de interesse)</li>
+<li>Fonte das coordenadas: dados próprios (peak calling, ex. MACS2) ou banco público (<strong>ENCODE</strong>/<strong>Cistrome DB</strong>)</li>
+</ul>
+</section>
+<section id="passo-a-passo-2" class="slide level2">
+<h2>Passo a passo</h2>
+<ol type="1">
+<li class="fragment">Obter as <strong>coordenadas genômicas</strong> do pico de interesse (build correto!)</li>
+<li class="fragment">Extrair a sequência flanqueadora no <strong>UCSC</strong> ou <strong>Ensembl</strong></li>
+<li class="fragment">Desenhar primers no <strong>Primer3Plus/Primer-BLAST</strong> que amplifiquem uma região <strong>dentro ou próxima ao centro do pico</strong></li>
+<li class="fragment">Desenhar também um par de primers para uma <strong>região controle negativa</strong> (sem enriquecimento esperado)</li>
+<li class="fragment">Validar especificidade e amplicon de 80–200 pb</li>
+</ol>
+</section>
+<section id="pontos-de-atenção-específicos-2" class="slide level2">
+<h2>Pontos de atenção específicos</h2>
+<ul>
+<li>O amplicon deve capturar a região de maior enriquecimento (geralmente o centro do pico/motivo do TF)</li>
+<li>Evitar regiões com múltiplos sítios de ligação semelhantes (risco de amplificar regiões parálogas)</li>
+<li>A região controle é essencial para interpretar o enriquecimento relativo (fold enrichment)</li>
+</ul>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="exemplo-4-mepcr-com-enzimas-sensíveis-à-metilação" class="title-slide slide level1 center" data-background-color="#2c5f6f">
+<h1>Exemplo 4 — mePCR com enzimas sensíveis à metilação</h1>
+
+</section>
+<section id="contexto-3" class="slide level2">
+<h2>Contexto</h2>
+<ul>
+<li>Método: <strong>MSRE-PCR</strong> (<em>Methylation-Sensitive Restriction Enzyme PCR</em>)</li>
+<li>Princípio: enzimas de restrição que <strong>não cortam</strong> DNA metilado no seu sítio de reconhecimento (ex. <code>CCGG</code>)</li>
+<li>Após digestão, só amplifica quem <strong>permaneceu intacto</strong> → indica metilação daquele sítio</li>
+<li>Diferente do MSP clássico (que usa conversão por bissulfito) — aqui não há conversão química</li>
+</ul>
+</section>
+<section id="passo-a-passo-3" class="slide level2">
+<h2>Passo a passo</h2>
+<ol type="1">
+<li class="fragment">Identificar o(s) sítio(s) CpG de interesse (ex. região de ilha CpG no promotor, via <strong>UCSC</strong>)</li>
+<li class="fragment">Localizar sítios de reconhecimento da enzima sensível à metilação com <strong>REBASE/NEBcutter</strong> (ex. <code>CCGG</code> para HpaII)</li>
+<li class="fragment">Desenhar primers que <strong>flanqueiam</strong> o sítio de corte — <strong>nunca sobre ele</strong></li>
+<li class="fragment">Amplicon recomendado: 150–400 pb, contendo o sítio de digestão entre F e R</li>
+<li class="fragment">Validar no OligoAnalyzer normalmente</li>
+</ol>
+</section>
+<section id="desenho-experimental-controles-obrigatórios" class="slide level2">
+<h2>Desenho experimental (controles obrigatórios)</h2>
+<ul>
+<li><strong>Enzima metil-sensível</strong> (ex. HpaII): não corta DNA metilado → amplifica se metilado;</li>
+<li><strong>Isosquizômero insensível</strong> (ex. MspI): corta independente da metilação → controle de digestão completa;</li>
+<li><strong>DNA não digerido</strong>: controle positivo de amplificação (deve sempre amplificar);</li>
+<li>Sem esses três braços, o resultado não é interpretável;</li>
+</ul>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="exemplo-5-mirna" class="title-slide slide level1 center" data-background-color="#2c5f6f">
+<h1>Exemplo 5 — miRNA</h1>
+
+</section>
+<section id="contexto-4" class="slide level2">
+<h2>Contexto</h2>
+<ul>
+<li>Alvo: um miRNA maduro, ex. <strong>miR-21-5p</strong> (~22 nt);</li>
+<li>Molde: cDNA gerado a partir do miRNA maduro (não do pré-miRNA);</li>
+<li><strong>Problema central</strong>: 22 nt não é suficiente para posicionar um par F/R convencional com boa Tm e especificidade;</li>
+</ul>
+</section>
+<section id="stem-loop" class="slide level2">
+<h2>Stem-loop</h2>
+
+<img data-src="stemloop.webp" width="1250" class="r-stretch quarto-figure-center"><p class="caption">Figura de Varkonyi-Gasic, E., Wu, R., Wood, M. et al.&nbsp;Protocol: a highly sensitive RT-PCR method for detection and quantification of microRNAs. Plant Methods 3, 12 (2007). https://doi.org/10.1186/1746-4811-3-12</p></section>
+<section id="estratégias-de-desenho" class="slide level2">
+<h2>Estratégias de desenho</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Stem-loop RT + TaqMan-like</strong></p>
+<ul>
+<li>Primer de RT com estrutura em grampo, específico para os últimos nt do miRNA</li>
+<li>Gera cDNA curto e específico</li>
+<li>PCR usa um primer forward específico da sequência madura + primer reverse universal</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Poly-A tailing (tipo SYBR)</strong></p>
+<ul>
+<li>Adiciona cauda poli-A ao miRNA maduro antes da RT</li>
+<li>RT com primer oligo-dT adaptado</li>
+<li>PCR usa primer forward específico do miRNA + reverse universal (ancorado na cauda)</li>
+</ul>
+</div></div>
+</section>
+<section id="passo-a-passo-4" class="slide level2">
+<h2>Passo a passo</h2>
+<ol type="1">
+<li class="fragment">Obter a sequência madura no <strong>miRBase</strong> (ex. hsa-miR-21-5p)</li>
+<li class="fragment">Escolher a estratégia de RT (stem-loop ou poly-A tailing)</li>
+<li class="fragment">Desenhar o primer forward específico com <strong>miRPrimer2</strong> (ou manualmente, ajustando Tm com toda a sequência disponível)</li>
+<li class="fragment">Conferir especificidade contra <strong>outros membros da mesma família</strong> (ex. let-7a vs.&nbsp;let-7b diferem por 1–2 nt)</li>
+<li class="fragment">Validar Tm e ausência de dímeros no OligoAnalyzer</li>
+</ol>
+</section>
+<section id="gerador-de-primers-stem-loop" class="slide level2">
+<h2>Gerador de primers stem-loop</h2>
+<div class="columns">
+<div class="column" style="width:38%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="693" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 692;"><span id="cb1-693"><a href=""></a>viewof nome <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Nome do miRNA"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"hsa-miR-133b"</span>})</span>
+<span id="cb1-694"><a href=""></a>viewof seq_mirna <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">textarea</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Sequência madura (5'→3')"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"UUUGGUCCCCUUCAACCAGCUA"</span><span class="op">,</span> <span class="dt">rows</span><span class="op">:</span> <span class="dv">2</span>})</span>
+<span id="cb1-695"><a href=""></a>viewof overlap <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">6</span><span class="op">,</span> <span class="dv">8</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Sobreposição do RT (nt)"</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">6</span>})</span>
+<span id="cb1-696"><a href=""></a>viewof cauda <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Cauda 5' do forward"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"CGGCGG"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:62%;">
+<div class="cell" data-edit="false" data-input="[&quot;nome&quot;,&quot;seq_mirna&quot;,&quot;overlap&quot;,&quot;cauda&quot;]">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5wdXQiOlsibm9tZSIsInNlcV9taXJuYSIsIm92ZXJsYXAiLCJjYXVkYSJdfSwiY29kZSI6InJlc3VsdGFkb19wcmltZXJzKG5vbWUsIHNlcV9taXJuYSwgb3ZlcmxhcCwgY2F1ZGEpIn0=
+</script>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>Cole a sequência do miRBase (U ou T, maiúsculas ou minúsculas). Os primers são recalculados automaticamente a cada alteração.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="o-que-é-cada-campo" class="slide level2 smaller">
+<h2>O que é cada campo</h2>
+<p><strong>Nome do miRNA</strong>. Só um rótulo para o resultado (ex.: hsa-miR-484). Não interfere no desenho.</p>
+<p><strong>Sequência madura (5’→3’)</strong>. Cole a sequência do miRBase ou miRGeneDB. Pode ser RNA (U) ou DNA (T); espaços e minúsculas são ignorados. Confira o braço correto (-5p ou -3p) e possíveis isomiRs.</p>
+<p><strong>Sobreposição do RT (nt)</strong>. Quantos nucleotídeos da extremidade 3’ do miRNA o primer stem-loop reconhece. O padrão é 6; use 7–8 para aumentar a especificidade da RT quando há membros da família com 3’ parecido. O forward cobre o restante do miRNA, sem sobrepor o RT.</p>
+<p><strong>Cauda 5’ do forward</strong>. Sequência extra que aumenta a Tm do forward, já que o miRNA sozinho é curto demais. O padrão é CGGCGG; para miRNAs muito ricos em A/T, uma cauda maior pode ajudar.</p>
+<div class="pequeno">
+<p>A Tm exibida é uma estimativa básica (fórmula de %GC), útil só para comparação. Para valores finais, use Primer3 ou a calculadora do fornecedor com as suas condições de sal e primer.</p>
+</div>
+</section>
+<section id="como-funciona-o-desenho" class="slide level2 smaller">
+<h2>Como funciona o desenho</h2>
+<ol type="1">
+<li><strong>RT</strong>: o stem-loop (44 nt fixos) + o reverso complementar dos últimos <em>n</em> nt do miRNA hibridiza na extremidade 3’ do miRNA maduro, e a transcriptase reversa estende o primer.</li>
+<li><strong>qPCR</strong>: o forward (cauda + início do miRNA) e o reverse universal (que anela no loop) amplificam um produto de ~60–70 pb.</li>
+<li><strong>Especificidade</strong>: o empilhamento de bases do stem desfavorece a ligação ao pré-miRNA.</li>
+</ol>
+<div class="pequeno">
+<p>Chen et al.&nbsp;(2005) <em>Nucleic Acids Res</em> 33:e179 · Varkonyi-Gasic et al.&nbsp;(2007) <em>Plant Methods</em> 3:12</p>
+</div>
+</section>
+<section id="pontos-de-atenção-específicos-3" class="slide level2">
+<h2>Pontos de atenção específicos</h2>
+<ul>
+<li>Diferenças de 1 nucleotídeo entre membros de família podem ser críticas — posicionar essa diferença próxima à extremidade 3’ do primer específico aumenta a discriminação</li>
+<li>Normalizar com um miRNA de referência estável (ex. RNU6, ou miRNAs de referência validados para o tecido em estudo)</li>
+<li>Sempre confirmar que a estratégia (kit comercial ou protocolo próprio) é compatível com o método de RT escolhido</li>
+</ul>
+</section></section>
+<section>
+<section id="encerramento" class="title-slide slide level1 center" data-background-color="#1b3a4b">
+<h1>Encerramento</h1>
+
+</section>
+<section id="resumo-comparativo-dos-5-exemplos" class="slide level2">
+<h2>Resumo comparativo dos 5 exemplos</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aplicação</th>
+<th>Molde</th>
+<th>Amplicon</th>
+<th>Ferramenta-chave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DNA genômico</td>
+<td>gDNA</td>
+<td>200–1000 pb</td>
+<td>Primer-BLAST + UCSC</td>
+</tr>
+<tr class="even">
+<td>RT-qPCR (GAPDH)</td>
+<td>cDNA</td>
+<td>70–150 pb</td>
+<td>Primer-BLAST (exon-exon)</td>
+</tr>
+<tr class="odd">
+<td>ChIP-qPCR</td>
+<td>DNA imunoprecipitado</td>
+<td>80–200 pb</td>
+<td>ENCODE/Cistrome + Primer3Plus</td>
+</tr>
+<tr class="even">
+<td>mePCR</td>
+<td>DNA digerido</td>
+<td>150–400 pb</td>
+<td>REBASE/NEBcutter + Primer3Plus</td>
+</tr>
+<tr class="odd">
+<td>miRNA</td>
+<td>cDNA (RT especial)</td>
+<td>curto/adaptado</td>
+<td>miRBase + miRPrimer2</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="checklist-final-antes-de-encomendar-seus-primers" class="slide level2">
+<h2>Checklist final — antes de encomendar seus primers</h2>
+<ul class="task-list">
+<li class="fragment"><label><input type="checkbox">Sequência-alvo confirmada no banco correto, no build genômico correto</label></li>
+<li class="fragment"><label><input type="checkbox">Critérios de Tm, GC%, comprimento respeitados</label></li>
+<li class="fragment"><label><input type="checkbox">Especificidade checada por BLAST</label></li>
+<li class="fragment"><label><input type="checkbox">Estruturas secundárias avaliadas (hairpin, self-dimer, heterodimer)</label></li>
+<li class="fragment"><label><input type="checkbox">Particularidades da aplicação atendidas (spanning, flanking, família de sequências, etc.)</label></li>
+<li class="fragment"><label><input type="checkbox">Controles experimentais planejados (no-RT, isosquizômero, região controle, etc.)</label></li>
+</ul>
+</section>
+<section id="obrigado" class="slide level2" data-background-color="#1b3a4b">
+<h2>Obrigado!</h2>
+<ul>
+<li>Dúvidas?</li>
+<li>Contato: Marcel — UNESP, Faculdade de Medicina de Botucatu</li>
+<li>Email: marcel.ferreira@unesp.br</li>
+</ul>
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8yO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJfd2Vicl92YWx1ZV8yID0ge1xuICBjb25zdCB7IGhpZ2hsaWdodFIsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV2YWx1YXRpb24gY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7XG4gICAgaWQ6IFwid2Vici0yLWNvbnRlbnRzXCIsXG4gICAgZWNobzogdHJ1ZSxcbiAgICBvdXRwdXQ6IHRydWVcbiAgfSwgYmxvY2suYXR0cik7XG5cbiAgLy8gRXZhbHVhdGUgdGhlIHByb3ZpZGVkIFIgY29kZVxuICBjb25zdCByZXN1bHQgPSB3ZWJST2pzLnByb2Nlc3Moe2NvZGU6IGJsb2NrLmNvZGUsIG9wdGlvbnN9LCB7bm9tZSwgc2VxX21pcm5hLCBvdmVybGFwLCBjYXVkYX0pO1xuXG4gIC8vIEVhcmx5IHlpZWxkIHdoaWxlIHdlIHdhaXQgZm9yIHRoZSBmaXJzdCBldmFsdWF0aW9uIGFuZCByZW5kZXJcbiAgaWYgKG9wdGlvbnMub3V0cHV0ICYmICEoXCIyXCIgaW4gd2ViUk9qcy5yZW5kZXJlZE9qcykpIHtcbiAgICBjb25zdCBjb250YWluZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuICAgIGNvbnN0IHNwaW5uZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuXG4gICAgaWYgKG9wdGlvbnMuZWNobykge1xuICAgICAgLy8gU2hvdyBvdXRwdXQgYXMgaGlnaGxpZ2h0ZWQgc291cmNlXG4gICAgICBjb25zdCBwcmVFbGVtID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcInByZVwiKTtcbiAgICAgIGNvbnRhaW5lci5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGVcIjtcbiAgICAgIHByZUVsZW0uY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlIHJcIjtcbiAgICAgIHByZUVsZW0uYXBwZW5kQ2hpbGQoaGlnaGxpZ2h0UihibG9jay5jb2RlKSk7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ncm93IHNwaW5uZXItZ3Jvdy1zbSBtLTIgcG9zaXRpb24tYWJzb2x1dGUgdG9wLTAgZW5kLTBcIjtcbiAgICAgIHByZUVsZW0uYXBwZW5kQ2hpbGQoc3Bpbm5lcik7XG4gICAgICBjb250YWluZXIuYXBwZW5kQ2hpbGQocHJlRWxlbSk7XG4gICAgfSBlbHNlIHtcbiAgICAgIHNwaW5uZXIuY2xhc3NOYW1lID0gXCJzcGlubmVyLWJvcmRlciBzcGlubmVyLWJvcmRlci1zbVwiO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgIH1cblxuICAgIHlpZWxkIGNvbnRhaW5lcjtcbiAgfVxuXG4gIHdlYlJPanMucmVuZGVyZWRPanNbXCIyXCJdID0gdHJ1ZTtcbiAgeWllbGQgYXdhaXQgcmVzdWx0O1xufVxuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6Il93ZWJyX3ZhbHVlXzEgPSB7XG4gIGNvbnN0IHsgaGlnaGxpZ2h0UiwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXZhbHVhdGlvbiBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHtcbiAgICBpZDogXCJ3ZWJyLTEtY29udGVudHNcIixcbiAgICBlY2hvOiB0cnVlLFxuICAgIG91dHB1dDogdHJ1ZVxuICB9LCBibG9jay5hdHRyKTtcblxuICAvLyBFdmFsdWF0ZSB0aGUgcHJvdmlkZWQgUiBjb2RlXG4gIGNvbnN0IHJlc3VsdCA9IHdlYlJPanMucHJvY2Vzcyh7Y29kZTogYmxvY2suY29kZSwgb3B0aW9uc30sIHt9KTtcblxuICAvLyBFYXJseSB5aWVsZCB3aGlsZSB3ZSB3YWl0IGZvciB0aGUgZmlyc3QgZXZhbHVhdGlvbiBhbmQgcmVuZGVyXG4gIGlmIChvcHRpb25zLm91dHB1dCAmJiAhKFwiMVwiIGluIHdlYlJPanMucmVuZGVyZWRPanMpKSB7XG4gICAgY29uc3QgY29udGFpbmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcbiAgICBjb25zdCBzcGlubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcblxuICAgIGlmIChvcHRpb25zLmVjaG8pIHtcbiAgICAgIC8vIFNob3cgb3V0cHV0IGFzIGhpZ2hsaWdodGVkIHNvdXJjZVxuICAgICAgY29uc3QgcHJlRWxlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwcmVcIik7XG4gICAgICBjb250YWluZXIuY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlXCI7XG4gICAgICBwcmVFbGVtLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZSByXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFIoYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICB3ZWJST2pzLnJlbmRlcmVkT2pzW1wiMVwiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="images.png" class="slide-logo"></p>
+<p><img src="Imagem1.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>marcel.ferreira@unesp.br</p>
 </div>
@@ -1092,6 +1483,93 @@ Marcel Ferreira
         ]
       });
     </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBub21lID0gSW5wdXRzLnRleHQoe2xhYmVsOiBcIk5vbWUgZG8gbWlSTkFcIiwgdmFsdWU6IFwiaHNhLW1pUi0xMzNiXCJ9KVxudmlld29mIHNlcV9taXJuYSA9IElucHV0cy50ZXh0YXJlYSh7bGFiZWw6IFwiU2VxdcOqbmNpYSBtYWR1cmEgKDUn4oaSMycpXCIsIHZhbHVlOiBcIlVVVUdHVUNDQ0NVVUNBQUNDQUdDVUFcIiwgcm93czogMn0pXG52aWV3b2Ygb3ZlcmxhcCA9IElucHV0cy5yYW5nZShbNiwgOF0sIHtsYWJlbDogXCJTb2JyZXBvc2nDp8OjbyBkbyBSVCAobnQpXCIsIHN0ZXA6IDEsIHZhbHVlOiA2fSlcbnZpZXdvZiBjYXVkYSA9IElucHV0cy50ZXh0KHtsYWJlbDogXCJDYXVkYSA1JyBkbyBmb3J3YXJkXCIsIHZhbHVlOiBcIkNHR0NHR1wifSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnbm9tZScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdzZXFfbWlybmEnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnb3ZlcmxhcCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdjYXVkYScpIn1dfQ==
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../..";
+    window._ojs.paths.runtimeToRoot = "../../..";
+    window._ojs.paths.docToRoot = "";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

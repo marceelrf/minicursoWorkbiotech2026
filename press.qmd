@@ -2,7 +2,7 @@
 title: "Fundamentos e Ferramentas Públicas para PCR"
 author: "Marcel Ferreira"
 format:
-  revealjs:
+  live-revealjs:
     theme: beige
     slide-number: true
     progress: true
@@ -17,11 +17,75 @@ format:
     fig-align: center
     footer: "marcel.ferreira@unesp.br"
     chalkboard: true
-    logo: "images.png"
+    logo: "Imagem1.png"
+    css: style.css
 execute:
   echo: false
   warning: false
 ---
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+<style>
+.reveal pre, .reveal pre code {
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+  font-size: 0.55em !important;
+  line-height: 1.35 !important;
+}
+.reveal form label, .reveal .observablehq label { font-size: 0.55em; }
+.reveal .observablehq input, .reveal .observablehq textarea { font-size: 0.55em; }
+.pequeno { font-size: 0.6em; }
+</style>
+
+```{webr}
+#| include: false
+# ---- Funções usadas pelo gerador (executadas no navegador via webR) ----
+
+STEM_LOOP <- "GTCGTATCCAGTGCAGGGTCCGAGGTATTCGCACTGGATACGAC"  # 5'->3'
+REV_UNIV  <- "GTGCAGGGTCCGAGGT"                              # confira no seu protocolo
+
+revcomp <- function(s) {
+  paste(rev(strsplit(chartr("ACGT", "TGCA", s), "")[[1]]), collapse = "")
+}
+
+conta_gc <- function(s) sum(strsplit(s, "")[[1]] %in% c("G", "C"))
+
+# Tm aproximada: regra de Wallace (< 14 nt) ou fórmula básica de %GC (>= 14 nt)
+tm_basica <- function(s) {
+  n <- nchar(s); gc <- conta_gc(s)
+  if (n < 14) 2 * (n - gc) + 4 * gc else 64.9 + 41 * (gc - 16.4) / n
+}
+
+resultado_primers <- function(nome, seq, overlap, cauda) {
+  seq   <- chartr("U", "T", toupper(gsub("[^A-Za-z]", "", seq)))
+  cauda <- toupper(gsub("[^A-Za-z]", "", cauda))
+
+  if (nchar(seq) == 0) { cat("Cole a sequência do miRNA maduro no campo ao lado.\n"); return(invisible()) }
+  if (!grepl("^[ACGT]+$", seq))   { cat("⚠ A sequência tem caracteres diferentes de A/C/G/U/T.\n"); return(invisible()) }
+  if (!grepl("^[ACGT]*$", cauda)) { cat("⚠ A cauda 5' tem caracteres inválidos.\n"); return(invisible()) }
+
+  n      <- nchar(seq)
+  overlap <- as.integer(overlap)
+  f_len  <- n - overlap
+
+  avisos <- character()
+  if (n < 17 || n > 28) avisos <- c(avisos, sprintf("Comprimento incomum para miRNA maduro (%d nt). Confira a sequência.", n))
+  if (f_len < 12)       avisos <- c(avisos, "A parte do F derivada do miRNA tem < 12 nt; a Tm pode ficar baixa.")
+
+  fwd <- paste0(cauda, substr(seq, 1, f_len))
+  rt  <- paste0(STEM_LOOP, revcomp(substr(seq, f_len + 1, n)))
+
+  cat(sprintf("%s  |  %d nt  |  DNA: %s\n\n", nome, n, seq))
+  cat("FORWARD (5'→3')\n", fwd, "\n",
+      sprintf("%d nt | GC %.0f%% | Tm ≈ %.1f °C\n\n", nchar(fwd), 100 * conta_gc(fwd) / nchar(fwd), tm_basica(fwd)), sep = "")
+  cat("RT STEM-LOOP (5'→3')\n", rt, "\n",
+      sprintf("%d nt | anela nos últimos %d nt do miRNA (%s)\n\n", nchar(rt), overlap, substr(seq, f_len + 1, n)), sep = "")
+  cat("REVERSE UNIVERSAL (5'→3')\n", REV_UNIV, "\n", sep = "")
+  if (length(avisos)) cat("\n⚠ ", paste(avisos, collapse = "\n⚠ "), "\n", sep = "")
+  invisible()
+}
+```
+
 
 ## Sobre este minicurso
 
@@ -74,9 +138,9 @@ Ao final deste minicurso, você será capaz de:
 
 [![](Central-Dogma.png){fig-align="center"}](https://www.geeksforgeeks.org/biology/central-dogma-steps-guide/)
 
-## Replicação do DNA
+<!-- ## Replicação do DNA
 
-[![](dnadetailreplication.webp){fig-align="center" width="850"}](https://allinonehighschool.com/dna-replication/)
+[![](dnadetailreplication.webp){fig-align="center" width="850"}](https://allinonehighschool.com/dna-replication/) -->
 
 ## Replicação do DNA
 
@@ -491,7 +555,7 @@ $$Tm = 64.9 + 41 \times \frac{(GC - 16.4)}{N}$$
 
 ------------------------------------------------------------------------
 
-# Exemplo 2 — RT-qPCR (GAPDH) {background-color="#2c5f6f"}
+# Exemplo 2 — RT-qPCR {background-color="#2c5f6f"}
 
 ## Contexto
 
@@ -522,3 +586,191 @@ $$Tm = 64.9 + 41 \times \frac{(GC - 16.4)}{N}$$
 -   Sempre incluir um controle **"no-RT"** no experimento para confirmar ausência de amplificação de gDNA
 
 ------------------------------------------------------------------------
+
+# Exemplo 3 — ChIP-qPCR {background-color="#2c5f6f"}
+
+## Contexto
+
+-   Objetivo: validar por qPCR um pico identificado em um experimento de ChIP-seq
+-   Molde: DNA imunoprecipitado (fragmento de cromatina ligado à proteína de interesse)
+-   Fonte das coordenadas: dados próprios (peak calling, ex. MACS2) ou banco público (**ENCODE**/**Cistrome DB**)
+
+## Passo a passo
+
+::: incremental
+1.  Obter as **coordenadas genômicas** do pico de interesse (build correto!)
+2.  Extrair a sequência flanqueadora no **UCSC** ou **Ensembl**
+3.  Desenhar primers no **Primer3Plus/Primer-BLAST** que amplifiquem uma região **dentro ou próxima ao centro do pico**
+4.  Desenhar também um par de primers para uma **região controle negativa** (sem enriquecimento esperado)
+5.  Validar especificidade e amplicon de 80–200 pb
+:::
+
+## Pontos de atenção específicos
+
+-   O amplicon deve capturar a região de maior enriquecimento (geralmente o centro do pico/motivo do TF)
+-   Evitar regiões com múltiplos sítios de ligação semelhantes (risco de amplificar regiões parálogas)
+-   A região controle é essencial para interpretar o enriquecimento relativo (fold enrichment)
+
+------------------------------------------------------------------------
+
+# Exemplo 4 — mePCR com enzimas sensíveis à metilação {background-color="#2c5f6f"}
+
+## Contexto
+
+-   Método: **MSRE-PCR** (*Methylation-Sensitive Restriction Enzyme PCR*)
+-   Princípio: enzimas de restrição que **não cortam** DNA metilado no seu sítio de reconhecimento (ex. `CCGG`)
+-   Após digestão, só amplifica quem **permaneceu intacto** → indica metilação daquele sítio
+-   Diferente do MSP clássico (que usa conversão por bissulfito) — aqui não há conversão química
+
+## Passo a passo
+
+::: incremental
+1.  Identificar o(s) sítio(s) CpG de interesse (ex. região de ilha CpG no promotor, via **UCSC**)
+2.  Localizar sítios de reconhecimento da enzima sensível à metilação com **REBASE/NEBcutter** (ex. `CCGG` para HpaII)
+3.  Desenhar primers que **flanqueiam** o sítio de corte — **nunca sobre ele**
+4.  Amplicon recomendado: 150–400 pb, contendo o sítio de digestão entre F e R
+5.  Validar no OligoAnalyzer normalmente
+:::
+
+## Desenho experimental (controles obrigatórios)
+
+-   **Enzima metil-sensível** (ex. HpaII): não corta DNA metilado → amplifica se metilado;
+-   **Isosquizômero insensível** (ex. MspI): corta independente da metilação → controle de digestão completa;
+-   **DNA não digerido**: controle positivo de amplificação (deve sempre amplificar);
+-   Sem esses três braços, o resultado não é interpretável;
+
+------------------------------------------------------------------------
+
+# Exemplo 5 — miRNA {background-color="#2c5f6f"}
+
+## Contexto
+
+-   Alvo: um miRNA maduro, ex. **miR-21-5p** (\~22 nt);
+-   Molde: cDNA gerado a partir do miRNA maduro (não do pré-miRNA);
+-   **Problema central**: 22 nt não é suficiente para posicionar um par F/R convencional com boa Tm e especificidade;
+
+## Stem-loop
+
+![Figura de Varkonyi-Gasic, E., Wu, R., Wood, M. et al. Protocol: a highly sensitive RT-PCR method for detection and quantification of microRNAs. Plant Methods 3, 12 (2007). https://doi.org/10.1186/1746-4811-3-12](stemloop.webp){fig-align="center" width="1250"}
+
+## Estratégias de desenho
+
+::::: columns
+::: {.column width="50%"}
+**Stem-loop RT + TaqMan-like**
+
+-   Primer de RT com estrutura em grampo, específico para os últimos nt do miRNA
+-   Gera cDNA curto e específico
+-   PCR usa um primer forward específico da sequência madura + primer reverse universal
+:::
+
+::: {.column width="50%"}
+**Poly-A tailing (tipo SYBR)**
+
+-   Adiciona cauda poli-A ao miRNA maduro antes da RT
+-   RT com primer oligo-dT adaptado
+-   PCR usa primer forward específico do miRNA + reverse universal (ancorado na cauda)
+:::
+:::::
+
+## Passo a passo
+
+::: incremental
+1.  Obter a sequência madura no **miRBase** (ex. hsa-miR-21-5p)
+2.  Escolher a estratégia de RT (stem-loop ou poly-A tailing)
+3.  Desenhar o primer forward específico com **miRPrimer2** (ou manualmente, ajustando Tm com toda a sequência disponível)
+4.  Conferir especificidade contra **outros membros da mesma família** (ex. let-7a vs. let-7b diferem por 1–2 nt)
+5.  Validar Tm e ausência de dímeros no OligoAnalyzer
+:::
+
+## Gerador de primers stem-loop
+
+:::: {.columns}
+
+::: {.column width="38%"}
+```{ojs}
+//| echo: false
+viewof nome = Inputs.text({label: "Nome do miRNA", value: "hsa-miR-133b"})
+viewof seq_mirna = Inputs.textarea({label: "Sequência madura (5'→3')", value: "UUUGGUCCCCUUCAACCAGCUA", rows: 2})
+viewof overlap = Inputs.range([6, 8], {label: "Sobreposição do RT (nt)", step: 1, value: 6})
+viewof cauda = Inputs.text({label: "Cauda 5' do forward", value: "CGGCGG"})
+```
+:::
+
+::: {.column width="62%"}
+```{webr}
+#| edit: false
+#| echo: false
+#| input:
+#|   - nome
+#|   - seq_mirna
+#|   - overlap
+#|   - cauda
+resultado_primers(nome, seq_mirna, overlap, cauda)
+```
+:::
+
+::::
+
+::: {.notes}
+Cole a sequência do miRBase (U ou T, maiúsculas ou minúsculas). Os primers são recalculados automaticamente a cada alteração.
+:::
+
+## O que é cada campo {.smaller}
+
+**Nome do miRNA**. Só um rótulo para o resultado (ex.: hsa-miR-484). Não interfere no desenho.
+
+**Sequência madura (5'→3')**. Cole a sequência do miRBase ou miRGeneDB. Pode ser RNA (U) ou DNA (T); espaços e minúsculas são ignorados. Confira o braço correto (-5p ou -3p) e possíveis isomiRs.
+
+**Sobreposição do RT (nt)**. Quantos nucleotídeos da extremidade 3' do miRNA o primer stem-loop reconhece. O padrão é 6; use 7–8 para aumentar a especificidade da RT quando há membros da família com 3' parecido. O forward cobre o restante do miRNA, sem sobrepor o RT.
+
+**Cauda 5' do forward**. Sequência extra que aumenta a Tm do forward, já que o miRNA sozinho é curto demais. O padrão é CGGCGG; para miRNAs muito ricos em A/T, uma cauda maior pode ajudar.
+
+::: {.pequeno}
+A Tm exibida é uma estimativa básica (fórmula de %GC), útil só para comparação. Para valores finais, use Primer3 ou a calculadora do fornecedor com as suas condições de sal e primer.
+:::
+
+## Como funciona o desenho {.smaller}
+
+1. **RT**: o stem-loop (44 nt fixos) + o reverso complementar dos últimos *n* nt do miRNA hibridiza na extremidade 3' do miRNA maduro, e a transcriptase reversa estende o primer.
+2. **qPCR**: o forward (cauda + início do miRNA) e o reverse universal (que anela no loop) amplificam um produto de ~60–70 pb.
+3. **Especificidade**: o empilhamento de bases do stem desfavorece a ligação ao pré-miRNA.
+
+::: {.pequeno}
+Chen et al. (2005) *Nucleic Acids Res* 33:e179 · Varkonyi-Gasic et al. (2007) *Plant Methods* 3:12
+:::
+
+## Pontos de atenção específicos
+
+-   Diferenças de 1 nucleotídeo entre membros de família podem ser críticas — posicionar essa diferença próxima à extremidade 3' do primer específico aumenta a discriminação
+-   Normalizar com um miRNA de referência estável (ex. RNU6, ou miRNAs de referência validados para o tecido em estudo)
+-   Sempre confirmar que a estratégia (kit comercial ou protocolo próprio) é compatível com o método de RT escolhido
+
+# Encerramento {background-color="#1b3a4b"}
+
+## Resumo comparativo dos 5 exemplos
+
+| Aplicação | Molde | Amplicon | Ferramenta-chave |
+|------------------|------------------|------------------|------------------|
+| DNA genômico | gDNA | 200–1000 pb | Primer-BLAST + UCSC |
+| RT-qPCR (GAPDH) | cDNA | 70–150 pb | Primer-BLAST (exon-exon) |
+| ChIP-qPCR | DNA imunoprecipitado | 80–200 pb | ENCODE/Cistrome + Primer3Plus |
+| mePCR | DNA digerido | 150–400 pb | REBASE/NEBcutter + Primer3Plus |
+| miRNA | cDNA (RT especial) | curto/adaptado | miRBase + miRPrimer2 |
+
+## Checklist final — antes de encomendar seus primers
+
+::: incremental
+-   [ ] Sequência-alvo confirmada no banco correto, no build genômico correto
+-   [ ] Critérios de Tm, GC%, comprimento respeitados
+-   [ ] Especificidade checada por BLAST
+-   [ ] Estruturas secundárias avaliadas (hairpin, self-dimer, heterodimer)
+-   [ ] Particularidades da aplicação atendidas (spanning, flanking, família de sequências, etc.)
+-   [ ] Controles experimentais planejados (no-RT, isosquizômero, região controle, etc.)
+:::
+
+## Obrigado! {background-color="#1b3a4b"}
+
+-   Dúvidas?
+-   Contato: Marcel — UNESP, Faculdade de Medicina de Botucatu
+-   Email: marcel.ferreira\@unesp.br
