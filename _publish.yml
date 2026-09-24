@@ -1,4 +1,4 @@
 - source: press.qmd
   netlify:
     - id: b15d5483-5aab-43ed-b10d-b509d8223614
-      url: https://luminous-macaron-77bc1a.netlify.app
+      url: https://slides-minicurso-wb26.netlify.app
